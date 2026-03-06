@@ -285,3 +285,42 @@
         filter: brightness(0.65) saturate(1.3) blur(1px);
     }
 }
+
+/* ====== MOBILE RESPONSIVE ====== */
+@media (max-width: 768px) {
+    .menu-overlay {
+        grid-template-columns: 1fr;
+        padding: 1rem 1.5rem;
+    }
+
+    .menu-blobs {
+        width: 100%;
+        opacity: 0.3;
+        /* Rendre les blobs plus discrets en fond sur mobile */
+    }
+
+    .menu-nav {
+        grid-column: 1;
+        padding-left: 0;
+        align-items: center;
+        /* Centrer les liens sur mobile */
+        margin-top: 2rem;
+    }
+
+    .menu-link {
+        justify-content: center;
+    }
+
+    .menu-link .link-text {
+        font-size: clamp(2.8rem, 15vw, 4rem);
+        /* Texte plus petit */
+    }
+
+    .menu-footer {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1.5rem;
+        padding-top: 1rem;
+    }
+}

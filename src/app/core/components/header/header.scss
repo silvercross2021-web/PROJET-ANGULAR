@@ -212,3 +212,15 @@
         background: var(--color-primary);
     }
 }
+
+/* ====== MOBILE RESPONSIVE ====== */
+@media (max-width: 768px) {
+    .header {
+        padding: 1rem 1.5rem;
+    }
+
+    .header .header-left .site-name {
+        display: none;
+        /* Hide site name on small screens to save space */
+    }
+}
