@@ -1,0 +1,69 @@
+<div class="page work-page">
+    <div class="grain"></div>
+    <div class="blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-5"></div>
+    </div>
+
+    <!-- === ZONE PREVIEW GAUCHE === -->
+    <div class="work-preview-zone" [class.has-project]="hoveredProject !== null">
+
+        <!-- Numéro flottant -->
+        <span class="preview-num" *ngIf="hoveredProject">
+            {{ ('0' + (getIndex(hoveredProject) + 1)).slice(-2) }}
+        </span>
+
+        <!-- Carte principale -->
+        <div class="work-preview-card" [class.is-visible]="hoveredProject !== null" [style.background]="hoveredProject
+        ? 'linear-gradient(135deg, ' + hoveredProject.couleur_primaire + ' 0%, ' + hoveredProject.couleur_secondaire + ' 100%)'
+        : 'transparent'">
+
+            <!-- Image projet si disponible -->
+            <img *ngIf="hoveredProject?.image" [src]="hoveredProject!.image" [alt]="hoveredProject!.titre"
+                class="preview-img">
+
+            <!-- Forme déco intérieure (fallback si pas d'image) -->
+            <div class="preview-deco" *ngIf="hoveredProject && !hoveredProject.image"
+                [style.background]="'radial-gradient(circle at 70% 30%, ' + hoveredProject.couleur_secondaire + '88, transparent 60%)'">
+            </div>
+
+            <!-- Texte bas de carte -->
+            <div class="preview-info" *ngIf="hoveredProject">
+                <span class="preview-category">{{ hoveredProject.categorie }}</span>
+                <span class="preview-title">{{ hoveredProject.titre | lowercase }}</span>
+                <span class="preview-year">{{ hoveredProject.annee }}</span>
+            </div>
+        </div>
+
+        <!-- Radio dot pulsant sous la carte -->
+        <div class="preview-radio" [class.is-visible]="hoveredProject !== null"
+            [style.border-color]="hoveredProject?.couleur_primaire || 'transparent'">
+            <span [style.background]="hoveredProject?.couleur_primaire || 'transparent'"></span>
+        </div>
+    </div>
+
+    <!-- === CONTENU DROIT === -->
+    <div class="page-content">
+        <div class="work-header">
+            <h1 class="work-title">PROJETS</h1>
+            <span class="work-count">{{ projects.length }}</span>
+        </div>
+
+        <div class="projects-list">
+            <a *ngFor="let p of projects; let i = index" [routerLink]="['/work', p.slug]" class="project-row"
+                (mouseenter)="hoveredProject = p" (mouseleave)="hoveredProject = null">
+
+                <div class="row-left">
+                    <span class="row-num">{{ ('0' + (i + 1)).slice(-2) }}</span>
+                    <span class="row-name">{{ p.titre | lowercase }}</span>
+                </div>
+
+                <div class="row-right">
+                    <span class="row-category">{{ p.categorie }}</span>
+                    <span class="row-arrow">↗</span>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

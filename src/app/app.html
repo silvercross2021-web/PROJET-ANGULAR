@@ -1,1 +1,12 @@
-<router-outlet />
+<app-cursor></app-cursor>
+<app-preloader></app-preloader>
+<app-header></app-header>
+<app-menu-overlay></app-menu-overlay>
+
+<!-- Overlay pour transitions entre pages -->
+<div class="page-transition-overlay" id="page-transition-overlay"></div>
+
+<!-- Conteneur principal -->
+<main id="scroll-container">
+    <router-outlet></router-outlet>
+</main>

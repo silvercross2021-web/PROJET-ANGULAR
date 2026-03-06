@@ -1,0 +1,77 @@
+.preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--color-bg);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none; // Let clicks pass when it fades out
+
+    .preloader-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .preloader-logo {
+        width: 50px;
+        height: 50px;
+
+        .spinner {
+            animation: rotate 2s linear infinite;
+
+            circle {
+                stroke: var(--color-primary);
+                stroke-width: 4;
+                stroke-dasharray: 1, 200;
+                stroke-dashoffset: 0;
+                animation: dash 1.5s ease-in-out infinite;
+                stroke-linecap: round;
+                fill: none;
+            }
+        }
+    }
+
+    .preloader-text-container {
+        overflow: hidden;
+        display: flex;
+
+        .letter {
+            font-family: var(--font-body);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-primary);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+    }
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes dash {
+    0% {
+        stroke-dasharray: 1, 200;
+        stroke-dashoffset: 0;
+    }
+
+    50% {
+        stroke-dasharray: 90, 200;
+        stroke-dashoffset: -35px;
+    }
+
+    100% {
+        stroke-dasharray: 90, 200;
+        stroke-dashoffset: -124px;
+    }
+}

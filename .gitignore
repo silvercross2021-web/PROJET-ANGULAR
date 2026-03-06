@@ -1,4 +1,6 @@
-# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+# =============================================
+#  Angular Frontend
+# =============================================
 
 # Compiled output
 /dist
@@ -6,12 +8,44 @@
 /out-tsc
 /bazel-out
 
-# Node
+# Dependencies
 /node_modules
+
+# Angular cache
+/.angular/cache
+
+# Logs
 npm-debug.log
 yarn-error.log
 
-# IDEs and editors
+# Test
+/coverage
+testem.log
+
+# Misc
+/connect.lock
+/libpeerconnection.log
+/typings
+__screenshots__/
+.sass-cache/
+
+# =============================================
+#  Django Backend
+# =============================================
+
+backend/venv/
+backend/__pycache__/
+backend/**/__pycache__/
+backend/**/*.pyc
+backend/db.sqlite3
+backend/staticfiles/
+backend/.env
+*.pyc
+
+# =============================================
+#  IDEs & Editors
+# =============================================
+
 .idea/
 .project
 .classpath
@@ -28,16 +62,19 @@ yarn-error.log
 !.vscode/extensions.json
 .history/*
 
-# Miscellaneous
-/.angular/cache
-.sass-cache/
-/connect.lock
-/coverage
-/libpeerconnection.log
-testem.log
-/typings
-__screenshots__/
+# =============================================
+#  AI Tools
+# =============================================
 
-# System files
+.claude/
+.windsurf/
+
+# =============================================
+#  System files
+# =============================================
+
 .DS_Store
 Thumbs.db
+*.swp
+*.swo
+*~

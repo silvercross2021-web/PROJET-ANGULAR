@@ -1,0 +1,66 @@
+<div class="page contact-page" data-scroll-section>
+    <div class="grain"></div>
+    <div class="blobs">
+        <div class="blob blob-2"></div>
+        <div class="blob blob-5"></div>
+    </div>
+
+    <div class="page-content">
+        <div class="page-header">
+            <span class="page-num">04</span>
+            <h1 class="page-title">
+                <span class="line-wrap"><span class="line-inner">CONTACT</span></span>
+            </h1>
+        </div>
+
+        <div class="contact-layout">
+            <div class="contact-info">
+                <p class="contact-intro">Vous avez un projet ? Une idée ? Travaillons ensemble.</p>
+
+                <div class="contact-email-big" *ngIf="profil">
+                    <a [href]="'mailto:' + profil.email" class="email-link">
+                        {{ profil.email }} ↗
+                    </a>
+                </div>
+
+                <div class="contact-socials">
+                    <a *ngFor="let reseau of reseaux" [href]="reseau.lien" target="_blank" class="social-link-item">
+                        <span>{{ reseau.nom_plateforme }}</span> <span class="social-arrow">↗</span>
+                    </a>
+                </div>
+            </div>
+
+            <form class="contact-form" (submit)="submitForm($event)" *ngIf="!sent">
+                <div class="form-group">
+                    <label for="name">Nom</label>
+                    <input id="name" type="text" placeholder="Votre nom" [(ngModel)]="formData.name" name="name"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input id="email" type="email" placeholder="votre@email.com" [(ngModel)]="formData.email"
+                        name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="objet">Objet</label>
+                    <input id="objet" type="text" placeholder="Objet de votre message" [(ngModel)]="formData.objet"
+                        name="objet">
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" rows="5" placeholder="Décrivez votre projet..."
+                        [(ngModel)]="formData.message" name="message" required></textarea>
+                </div>
+                <p class="form-error" *ngIf="error">{{ error }}</p>
+                <button type="submit" class="submit-btn" [disabled]="sending">
+                    {{ sending ? 'Envoi en cours...' : 'Envoyer le message →' }}
+                </button>
+            </form>
+
+            <div class="contact-success" *ngIf="sent">
+                <p>✓ Merci ! Votre message a bien été envoyé. Je vous répondrai rapidement.</p>
+                <button class="cta-btn" (click)="sent = false">Envoyer un autre message</button>
+            </div>
+        </div>
+    </div>
+</div>

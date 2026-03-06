@@ -1,0 +1,77 @@
+<div class="page about-page">
+    <div class="grain"></div>
+    <div class="blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-3"></div>
+        <div class="blob blob-4"></div>
+    </div>
+
+    <div class="page-content">
+        <div class="page-header">
+            <span class="page-num">03</span>
+            <h1 class="page-title">
+                <span class="line-wrap"><span class="line-inner">À PROPOS</span></span>
+            </h1>
+        </div>
+
+        <div class="about-grid">
+            <!-- Colonne portrait -->
+            <div class="about-portrait">
+                <div class="portrait-img">
+                    <img *ngIf="profil?.photo_profil" [src]="profil!.photo_profil" [alt]="profil!.prenom + ' ' + profil!.nom" class="portrait-photo">
+                    <div *ngIf="!profil?.photo_profil" class="portrait-placeholder">{{ profil ? (profil.prenom[0] + profil.nom[0]).toUpperCase() : '' }}</div>
+                </div>
+
+                <div class="portrait-meta" *ngIf="profil">
+                    <div class="meta-item">
+                        <span class="meta-label">Basé à</span>
+                        <span class="meta-value">Côte d'Ivoire</span>
+                    </div>
+                    <div class="meta-item" *ngIf="profil.disponibilite">
+                        <span class="meta-label">Disponible</span>
+                        <span class="meta-value meta-available">● {{ profil.disponibilite }}</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Email</span>
+                        <a [href]="'mailto:' + profil.email"
+                            class="meta-value meta-link">{{ profil.email }}</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Colonne texte -->
+            <div class="about-text">
+                <p class="about-intro" *ngIf="profil">
+                    Je suis <strong>{{ profil.prenom }} {{ profil.nom }}</strong>,
+                    {{ profil.titre || '' }}.
+                </p>
+
+                <p *ngIf="profil">{{ profil.description }}</p>
+
+                <!-- Compétences dynamiques -->
+                <div class="about-skills" *ngIf="services.length > 0">
+                    <div class="skill-group" *ngFor="let service of services">
+                        <h3>{{ service.nom }}</h3>
+                        <ul>
+                            <li *ngFor="let outil of service.outils_liste">{{ outil }}</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Timeline expérience dynamique -->
+                <div class="experience-timeline" *ngIf="experiences.length > 0">
+                    <h3 class="timeline-title">Expériences</h3>
+                    <div class="timeline-item" *ngFor="let exp of experiences">
+                        <span class="timeline-year">{{ formatDate(exp.date_debut) }} — {{ formatDate(exp.date_fin) }}</span>
+                        <div class="timeline-content">
+                            <h4>{{ exp.role }}</h4>
+                            <p>{{ exp.nom_entreprise }} — {{ exp.description }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <a *ngIf="profil?.lien_cv" [href]="profil!.lien_cv" class="cta-btn" download>↓ Télécharger mon CV</a>
+            </div>
+        </div>
+    </div>
+</div>

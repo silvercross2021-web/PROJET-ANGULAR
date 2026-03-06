@@ -1,0 +1,47 @@
+<div class="menu-overlay" [class.is-open]="isOpen">
+
+    <!-- Blobs animés côté gauche (comme l'original) -->
+    <div class="menu-blobs">
+        <div class="menu-blob mb-1"></div>
+        <div class="menu-blob mb-2"></div>
+        <div class="menu-blob mb-3"></div>
+        <div class="menu-blob mb-4"></div>
+    </div>
+
+    <!-- Header du menu : logo + nom  -->
+    <div class="menu-header">
+        <div class="menu-logo">
+            <svg viewBox="0 0 50 50" fill="none">
+                <path d="M10 38 Q18 8 25 25 Q32 42 40 12" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" fill="none" />
+            </svg>
+        </div>
+        <span class="menu-site-name">silver/cross</span>
+    </div>
+
+    <!-- Navigation centrale -->
+    <nav class="menu-nav">
+        <a routerLink="/" class="menu-link" (click)="close()">
+            <span class="link-num">01</span>
+            <span class="link-text">ACCUEIL</span>
+        </a>
+        <a routerLink="/work" class="menu-link" (click)="close()">
+            <span class="link-num">02</span>
+            <span class="link-text">PROJETS</span>
+        </a>
+        <a routerLink="/about" class="menu-link" (click)="close()">
+            <span class="link-num">03</span>
+            <span class="link-text">À PROPOS</span>
+        </a>
+        <a routerLink="/contact" class="menu-link" (click)="close()">
+            <span class="link-num">04</span>
+            <span class="link-text">CONTACT</span>
+        </a>
+    </nav>
+
+    <!-- Footer du menu -->
+    <div class="menu-footer">
+        <a *ngFor="let reseau of reseaux" [href]="reseau.lien" target="_blank" class="menu-social">↗ {{ reseau.nom_plateforme | lowercase }}</a>
+    </div>
+
+</div>

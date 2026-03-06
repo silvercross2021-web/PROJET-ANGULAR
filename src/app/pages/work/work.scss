@@ -1,0 +1,333 @@
+/* ============================================================
+   PAGE WORK — Layout fidèle à itssharl.ee
+   ============================================================ */
+
+.work-page {
+    position: relative;
+
+    .page-content {
+        padding-top: 8rem;
+        padding-left: 46%;
+        padding-right: 4rem;
+        padding-bottom: 6rem;
+        min-height: 100vh;
+
+        @media (max-width: 900px) {
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+    }
+}
+
+/* ============================================================
+   ZONE PREVIEW GAUCHE — fixée, indépendante du scroll
+   ============================================================ */
+.work-preview-zone {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 44%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    pointer-events: none;
+    z-index: 10;
+
+    @media (max-width: 900px) {
+        display: none;
+    }
+}
+
+/* Numéro flottant au-dessus de la carte */
+.preview-num {
+    font-family: var(--font-display);
+    font-size: clamp(5rem, 10vw, 9rem);
+    font-weight: 900;
+    color: color-mix(in srgb, var(--color-dark) 6%, transparent);
+    letter-spacing: -0.04em;
+    line-height: 1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -75%);
+    pointer-events: none;
+    user-select: none;
+    transition: color 0.4s ease;
+
+    html.dark-mode & {
+        color: color-mix(in srgb, var(--color-dark) 8%, transparent);
+    }
+}
+
+/* Carte preview */
+.work-preview-card {
+    position: relative;
+    width: 76%;
+    aspect-ratio: 4 / 3;
+    border-radius: 16px;
+    /* Initial: invisible et légèrement descendu */
+    opacity: 0;
+    transform: scale(0.88) translateY(18px);
+    transition:
+        opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+        background 0.4s ease;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.15);
+
+    &.is-visible {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+
+    /* Overlay gradient sombre en bas */
+    &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top,
+                rgba(0, 0, 0, 0.4) 0%,
+                rgba(0, 0, 0, 0.1) 40%,
+                transparent 70%);
+        border-radius: inherit;
+        z-index: 1;
+    }
+
+    /* Image projet dans la carte */
+    .preview-img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+        border-radius: inherit;
+    }
+
+    /* Forme déco intérieure lumineuse */
+    .preview-deco {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        transition: background 0.4s ease;
+    }
+
+    /* Infos en bas de la carte */
+    .preview-info {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 1.8rem;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+
+        .preview-category {
+            font-family: var(--font-body);
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: rgba(255, 255, 255, 0.65);
+        }
+
+        .preview-title {
+            font-family: var(--font-display);
+            font-size: clamp(1rem, 1.8vw, 1.3rem);
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.2;
+        }
+
+        .preview-year {
+            font-family: var(--font-body);
+            font-size: 0.72rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+    }
+}
+
+/* Radio dot pulsant sous la carte */
+.preview-radio {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1.5px solid transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: scale(0.7);
+    transition:
+        opacity 0.4s 0.1s ease,
+        transform 0.4s 0.1s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 0.4s ease;
+
+    &.is-visible {
+        opacity: 1;
+        transform: scale(1);
+        animation: previewRadioPulse 2.5s ease-in-out infinite;
+    }
+
+    span {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        display: block;
+        transition: background 0.4s ease;
+    }
+}
+
+@keyframes previewRadioPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(168, 237, 234, 0);
+    }
+
+    50% {
+        transform: scale(1.08);
+        box-shadow: 0 0 0 6px rgba(168, 237, 234, 0.15);
+    }
+}
+
+/* ============================================================
+   HEADER WORK
+   ============================================================ */
+.work-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.2rem;
+    margin-bottom: 0;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-primary) 22%, transparent);
+    transition: border-color 0.4s ease;
+
+    .work-title {
+        font-family: var(--font-display);
+        font-size: clamp(2.2rem, 3.5vw, 3.8rem);
+        font-weight: 800;
+        letter-spacing: -0.025em;
+        color: var(--color-dark);
+        line-height: 1;
+        transition: color 0.4s ease;
+    }
+
+    .work-count {
+        font-family: var(--font-display);
+        font-size: 1.2rem;
+        font-weight: 300;
+        color: var(--color-primary);
+        opacity: 0.5;
+    }
+}
+
+/* ============================================================
+   LISTE DES PROJETS
+   ============================================================ */
+.projects-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.project-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.4rem 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-primary) 15%, transparent);
+    text-decoration: none;
+    position: relative;
+    transition: padding-left 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 0.4s ease;
+
+    /* Ligne verticale active au hover */
+    &::before {
+        content: '';
+        position: absolute;
+        left: -1.8rem;
+        top: 50%;
+        transform: translateY(-50%) scaleY(0);
+        width: 2px;
+        height: 55%;
+        background: var(--color-dark);
+        transform-origin: center;
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+            background 0.4s ease;
+        border-radius: 2px;
+    }
+
+    &:hover {
+        padding-left: 0.8rem;
+
+        &::before {
+            transform: translateY(-50%) scaleY(1);
+        }
+
+        .row-name {
+            color: var(--color-dark);
+        }
+
+        .row-num {
+            opacity: 0.7;
+        }
+
+        .row-arrow {
+            transform: translate(2px, -2px);
+            opacity: 1;
+        }
+    }
+
+    .row-left {
+        display: flex;
+        align-items: baseline;
+        gap: 1rem;
+
+        .row-num {
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            color: var(--color-primary);
+            opacity: 0.35;
+            letter-spacing: 0.05em;
+            transition: opacity 0.3s;
+            flex-shrink: 0;
+        }
+
+        .row-name {
+            font-family: var(--font-display);
+            font-size: clamp(1.1rem, 2.2vw, 1.85rem);
+            font-weight: 700;
+            color: color-mix(in srgb, var(--color-dark) 75%, transparent);
+            transition: color 0.35s ease;
+            line-height: 1.2;
+        }
+    }
+
+    .row-right {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        flex-shrink: 0;
+        margin-left: 1.5rem;
+
+        .row-category {
+            font-family: var(--font-body);
+            font-size: 0.8rem;
+            color: var(--color-primary);
+            opacity: 0.55;
+            transition: opacity 0.3s;
+        }
+
+        .row-arrow {
+            font-size: 1rem;
+            color: var(--color-dark);
+            opacity: 0.3;
+            transition: transform 0.3s ease, opacity 0.3s;
+        }
+    }
+}

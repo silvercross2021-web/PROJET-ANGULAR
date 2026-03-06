@@ -1,0 +1,214 @@
+:host {
+    display: contents;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1.5rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+
+    .header-left {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        z-index: 1001;
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-svg {
+            width: 36px;
+            height: 36px;
+            color: var(--color-dark);
+            transition: color 0.5s ease;
+        }
+
+        .site-name {
+            font-family: var(--font-body);
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            color: var(--color-primary);
+            opacity: 0.7;
+            transition: color 0.5s ease, opacity 0.5s ease;
+        }
+    }
+
+    .header-right {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        z-index: 1001;
+    }
+
+    /* Lang switch */
+    .lang-switch {
+        font-family: var(--font-body);
+        font-size: 0.78rem;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        color: var(--color-primary);
+        display: flex;
+        gap: 0.25rem;
+        align-items: center;
+        transition: color 0.5s ease;
+
+        .sep {
+            opacity: 0.35;
+        }
+
+        span {
+            opacity: 0.5;
+            transition: opacity 0.3s;
+
+            &.active,
+            &:hover {
+                opacity: 1;
+            }
+        }
+    }
+
+    /* Bouton dark mode */
+    .theme-btn {
+        width: 30px;
+        height: 30px;
+        background: transparent;
+        border: none;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-primary);
+        transition: color 0.5s ease, transform 0.5s ease;
+
+        svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        &:hover {
+            transform: rotate(20deg);
+        }
+    }
+
+    /* Bouton menu */
+    .menu-btn {
+        background: transparent;
+        border: none;
+        padding: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        position: relative;
+    }
+
+    .menu-icon {
+        position: relative;
+        width: 26px;
+        height: 26px;
+    }
+
+    /* Grille 3×3 points */
+    .dots-grid {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        grid-template-columns: repeat(3, 6px);
+        grid-template-rows: repeat(3, 6px);
+        gap: 4px;
+        transition: opacity 0.35s ease, transform 0.4s cubic-bezier(0.76, 0, 0.24, 1);
+        align-content: center;
+        justify-content: center;
+
+        span {
+            background: var(--color-primary);
+            border-radius: 50%;
+            width: 6px;
+            height: 6px;
+            display: block;
+            transition: background 0.5s ease;
+        }
+    }
+
+    /* Croix de fermeture */
+    .close-x {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        transform: rotate(-45deg) scale(0.6);
+        transition: opacity 0.35s ease, transform 0.4s cubic-bezier(0.76, 0, 0.24, 1);
+
+        .bar {
+            position: absolute;
+            width: 22px;
+            height: 1.5px;
+            background: var(--color-primary);
+            border-radius: 2px;
+            top: 50%;
+            left: 50%;
+            transition: background 0.5s ease;
+
+            &.bar-1 {
+                transform: translate(-50%, -50%) rotate(45deg);
+            }
+
+            &.bar-2 {
+                transform: translate(-50%, -50%) rotate(-45deg);
+            }
+        }
+    }
+
+    /* Quand menu ouvert : dots→crosshair */
+    .menu-icon.is-open {
+        .dots-grid {
+            opacity: 0;
+            transform: scale(0.5) rotate(90deg);
+        }
+
+        .close-x {
+            opacity: 1;
+            transform: rotate(0deg) scale(1);
+        }
+    }
+}
+
+/* ====================================================
+   ÉTAT MENU OUVERT  — changer la couleur du header
+   ==================================================== */
+.header.menu-open {
+
+    /* Le header passe en couleur inverse (sur fond du menu) */
+    .logo-svg {
+        color: var(--color-dark);
+    }
+
+    .site-name {
+        color: var(--color-primary);
+    }
+
+    .lang-switch {
+        color: var(--color-primary);
+    }
+
+    .theme-btn {
+        color: var(--color-primary);
+    }
+
+    .dots-grid span {
+        background: var(--color-primary);
+    }
+
+    .close-x .bar {
+        background: var(--color-primary);
+    }
+}

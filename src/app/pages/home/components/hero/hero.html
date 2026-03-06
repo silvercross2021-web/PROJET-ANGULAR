@@ -1,0 +1,34 @@
+<section class="hero" data-scroll-section>
+    <!-- Grain overlay -->
+    <div class="grain"></div>
+
+    <!-- Blobs animés inspirés du vrai site -->
+    <div class="blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+        <div class="blob blob-4"></div>
+        <div class="blob blob-5"></div>
+        <div class="blob blob-6"></div>
+    </div>
+
+    <!-- Contenu centré -->
+    <div class="hero-content" #heroContent>
+        <p class="hero-intro">HEY, JE SUIS</p>
+        <h1 class="hero-name">
+            <span class="line-wrap"><span class="line-inner name-solid">{{ profil?.prenom?.toUpperCase() || 'CHARGEMENT...' }}</span></span>
+        </h1>
+        <p class="hero-tagline" *ngIf="profil?.alias">
+            <span class="line-wrap"><span class="line-inner">MAIS VOUS POUVEZ M'APPELER</span></span>
+        </p>
+        <p class="hero-alias" *ngIf="profil?.alias">
+            <span class="line-wrap"><span class="line-inner">{{ profil?.alias?.toUpperCase() }}</span></span>
+        </p>
+        <p class="hero-desc">{{ profil?.bio_courte || profil?.description || '' }}</p>
+
+        <div class="hero-ctas" #heroCtas>
+            <a routerLink="/work" class="cta-btn">→ voir mes projets</a>
+            <a routerLink="/about" class="cta-btn">→ en savoir plus</a>
+        </div>
+    </div>
+</section>
