@@ -8,7 +8,7 @@ class Utilisateur(models.Model):
     age = models.IntegerField()
     email = models.EmailField(unique=True)
     lien_cv = models.URLField(max_length=500, blank=True)
-    telephone = models.CharField(max_length=20)
+    telephone = models.CharField(max_length=50)
     titre = models.CharField(max_length=150, blank=True)
     alias = models.CharField(max_length=100, blank=True)
     bio_courte = models.TextField(blank=True)
