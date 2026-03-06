@@ -1,0 +1,360 @@
+﻿[
+{
+  "model": "api.utilisateur",
+  "pk": 6,
+  "fields": {
+    "nom": "Brou Kablan",
+    "prenom": "Brandonne Davy",
+    "photo_profil": "https://media.licdn.com/dms/image/v2/D4E03AQE6YVjljD-cMg/profile-displayphoto-scale_400_400/B4EZu0wjBPKEAg-/0/1768264186694?e=1774483200&v=beta&t=_0OUljbdFJ3CwhNhpIpRrge65fjtqHr_mX87B_cswSA",
+    "description": "╔tudiant en 3Þme annÚe d'informatique (IIT), polyvalent et motivÚ, avec des compÚtences solides en dÚveloppement logiciel et en dÚveloppement web. J'aime relever les dÚfis et je souhaite contribuer Ó des projets innovants tout en poursuivant mon apprentissage.",
+    "age": 23,
+    "email": "brandonnebrou257@gmail.com",
+    "lien_cv": "/Brou_Kabkan_Christ-CV_fr.pdf",
+    "telephone": "+225 0747476401/0143490039",
+    "titre": "╔tudiant en Licence 3 - GÚnie Logiciel",
+    "alias": "BK",
+    "bio_courte": "╔tudiant en informatique passionnÚ par le dÚveloppement logiciel et web, toujours prÛt Ó relever de nouveaux dÚfis.",
+    "disponibilite": "Disponible pour stages et projets",
+    "est_actif": true,
+    "ordre_affichage": 0
+  }
+},
+{
+  "model": "api.projet",
+  "pk": 18,
+  "fields": {
+    "utilisateur": 6,
+    "titre": "Vainqueur Hackathon D'Vest Abidjan 2025",
+    "slug": "hackathon-dvest-abidjan-2025",
+    "categorie": "Hackathon / IA",
+    "annee": "2025",
+    "resume": "Justice-Guide AI, plateforme juridique IA multilingue.",
+    "description": "Vainqueur du Hackathon D'Vest Abidjan 2025 avec Justice-Guide AI, une plateforme juridique basÚe sur l'intelligence artificielle multilingue (Franþais/Dioula/BaoulÚ) pour la C¶te d'Ivoire. Solution innovante facilitant l'accÞs Ó l'information juridique pour tous.",
+    "image": "https://media.licdn.com/dms/image/v2/D4E22AQGzy62iZdGGFQ/feedshare-shrink_800/B4EZsFE6wLGUAg-/0/1765316734249?e=1774483200&v=beta&t=cqtNbv5PWaWm6qUlqpKxj_5UolvR_iF2ASfJdj0kmWU",
+    "lien": "",
+    "github": "",
+    "live": "",
+    "couleur_primaire": "#a8edea",
+    "couleur_secondaire": "#fed6e3",
+    "technologies": "IA, NLP, Multilingue, Python, Django",
+    "est_mis_en_avant": true,
+    "est_actif": true,
+    "ordre_affichage": 0
+  }
+},
+{
+  "model": "api.projet",
+  "pk": 19,
+  "fields": {
+    "utilisateur": 6,
+    "titre": "Projet Personnel : Gestion de RÚservations (Flask)",
+    "slug": "gestion-reservations-flask",
+    "categorie": "DÚveloppement Web",
+    "annee": "2024",
+    "resume": "Application web de gestion de rÚservations avec Flask.",
+    "description": "CrÚation d'une application web de gestion de rÚservations dÚveloppÚe avec Flask. SystÞme complet permettant la crÚation, modification et suivi des rÚservations. Interface utilisateur intuitive et backend robuste. Projet rÚalisÚ avec des tests unitaires pour garantir la fiabilitÚ.",
+    "image": "https://media.licdn.com/dms/image/v2/D4E22AQHrbpb2h4_9Bg/feedshare-shrink_2048_1536/B4EZuWCJ3VK4Aw-/0/1767748723550?e=1774483200&v=beta&t=g6G3D2Iw-MI9EcCeUU876s31j_rKRU9LsQTshrOIqh0",
+    "lien": "",
+    "github": "",
+    "live": "",
+    "couleur_primaire": "#cdb4f8",
+    "couleur_secondaire": "#a8d8f8",
+    "technologies": "Python, Flask, SQLite, HTML, CSS, JavaScript",
+    "est_mis_en_avant": true,
+    "est_actif": true,
+    "ordre_affichage": 1
+  }
+},
+{
+  "model": "api.projet",
+  "pk": 20,
+  "fields": {
+    "utilisateur": 6,
+    "titre": "Projet AcadÚmique : Site E-Commerce (Django)",
+    "slug": "site-ecommerce-django",
+    "categorie": "DÚveloppement Web",
+    "annee": "2024",
+    "resume": "Site e-commerce complet avec Django.",
+    "description": "CrÚation d'un site e-commerce (Django) servant Ó gÚrer les produits, les utilisateurs et les paniers. Projet universitaire complet incluant la gestion des commandes, systÞme d'authentification, panier d'achat et interface d'administration. Architecture MVC respectÚe.",
+    "image": "",
+    "lien": "",
+    "github": "",
+    "live": "",
+    "couleur_primaire": "#98f7c4",
+    "couleur_secondaire": "#4adede",
+    "technologies": "Python, Django, PostgreSQL, Bootstrap, JavaScript",
+    "est_mis_en_avant": false,
+    "est_actif": true,
+    "ordre_affichage": 2
+  }
+},
+{
+  "model": "api.projet",
+  "pk": 21,
+  "fields": {
+    "utilisateur": 6,
+    "titre": "Projet AcadÚmique : Application de Gestion Scolaire (C#)",
+    "slug": "gestion-scolaire-csharp",
+    "categorie": "DÚveloppement Logiciel",
+    "annee": "2023",
+    "resume": "Application C# pour la gestion scolaire.",
+    "description": "Application C# pour la gestion scolaire (Útudiants, professeurs, inscriptions et paiements). SystÞme complet de gestion d'Útablissement scolaire avec interface Windows Forms. Gestion des notes, absences, emplois du temps et gÚnÚration de rapports.",
+    "image": "",
+    "lien": "",
+    "github": "",
+    "live": "",
+    "couleur_primaire": "#ffd6a5",
+    "couleur_secondaire": "#ffb997",
+    "technologies": "C#, .NET, WinForms, SQL Server",
+    "est_mis_en_avant": false,
+    "est_actif": true,
+    "ordre_affichage": 3
+  }
+},
+{
+  "model": "api.projet",
+  "pk": 22,
+  "fields": {
+    "utilisateur": 6,
+    "titre": "Agent d'Automatisation IA (RBN & Excel)",
+    "slug": "agent-automatisation-ia",
+    "categorie": "Automatisation / IA",
+    "annee": "2024",
+    "resume": "Agent IA pour automatiser la gestion Excel.",
+    "description": "CrÚation d'un agent IA (RBN & OpenAI) pour automatiser la gestion Excel (lecture, Úcriture, alertes) via commandes vocales et textuelles. Solution innovante permettant de manipuler des fichiers Excel par commandes naturelles, avec gÚnÚration automatique de rapports et alertes intelligentes.",
+    "image": "",
+    "lien": "",
+    "github": "",
+    "live": "",
+    "couleur_primaire": "#cdb4f8",
+    "couleur_secondaire": "#fed6e3",
+    "technologies": "Python, OpenAI, RBN, Excel API, NLP",
+    "est_mis_en_avant": true,
+    "est_actif": true,
+    "ordre_affichage": 4
+  }
+},
+{
+  "model": "api.projet",
+  "pk": 23,
+  "fields": {
+    "utilisateur": 6,
+    "titre": "Projet AcadÚmique : Gestion de Parc Informatique Odoo",
+    "slug": "gestion-parc-informatique-odoo",
+    "categorie": "ERP / Gestion",
+    "annee": "2024",
+    "resume": "Module Odoo pour la gestion de parc informatique.",
+    "description": "DÚveloppement d'un module Odoo personnalisÚ pour l'inventaire, l'affectation et le suivi du cycle de vie du matÚriel informatique. Solution complÞte de gestion de parc incluant le tracking des Úquipements, maintenance prÚventive et gÚnÚration de rapports.",
+    "image": "",
+    "lien": "",
+    "github": "",
+    "live": "",
+    "couleur_primaire": "#a8d8f8",
+    "couleur_secondaire": "#98f7c4",
+    "technologies": "Python, Odoo, PostgreSQL, XML, JavaScript",
+    "est_mis_en_avant": false,
+    "est_actif": true,
+    "ordre_affichage": 5
+  }
+},
+{
+  "model": "api.experience",
+  "pk": 10,
+  "fields": {
+    "utilisateur": 6,
+    "projet": 18,
+    "date_debut": "2025-01-01",
+    "date_fin": "2025-01-31",
+    "role": "Participant Hackathon - Vainqueur",
+    "nom_entreprise": "D'Vest Abidjan 2025",
+    "description": "Vainqueur du Hackathon D'Vest Abidjan 2025 avec le projet Justice-Guide AI, une plateforme juridique IA multilingue (Franþais/Dioula/BaoulÚ) pour la C¶te d'Ivoire. DÚveloppement d'une solution innovante en Úquipe dans un temps limitÚ.",
+    "type_de_contrat": "Hackathon",
+    "est_actif": true,
+    "ordre_affichage": 0
+  }
+},
+{
+  "model": "api.experience",
+  "pk": 11,
+  "fields": {
+    "utilisateur": 6,
+    "projet": null,
+    "date_debut": "2022-09-01",
+    "date_fin": null,
+    "role": "╔tudiant en Licence GÚnie Logiciel",
+    "nom_entreprise": "Institut Ivoirien de Technologie (IIT)",
+    "description": "Formation en Licence 3 GÚnie Logiciel Ó l'Institut Ivoirien de Technologie. Apprentissage approfondi du dÚveloppement logiciel, des bases de donnÚes, du dÚveloppement web et mobile, ainsi que des mÚthodologies de gestion de projets.",
+    "type_de_contrat": "Formation",
+    "est_actif": true,
+    "ordre_affichage": 1
+  }
+},
+{
+  "model": "api.experience",
+  "pk": 12,
+  "fields": {
+    "utilisateur": 6,
+    "projet": null,
+    "date_debut": "2020-09-01",
+    "date_fin": "2022-06-30",
+    "role": "╔tudiant",
+    "nom_entreprise": "CollÞge Catholique Saint Jean Bosco",
+    "description": "Formation secondaire au CollÞge Catholique Saint Jean Bosco. DÚveloppement des bases acadÚmiques et dÚcouverte de la programmation.",
+    "type_de_contrat": "Formation",
+    "est_actif": true,
+    "ordre_affichage": 2
+  }
+},
+{
+  "model": "api.localisation",
+  "pk": 4,
+  "fields": {
+    "pays": "C¶te d'Ivoire",
+    "ville": "Grand-Bassam",
+    "latitude": "5.211111",
+    "longitude": "-3.738889",
+    "quartier": "Grand-Bassam",
+    "ordre_affichage": 0
+  }
+},
+{
+  "model": "api.service",
+  "pk": 19,
+  "fields": {
+    "experience": null,
+    "localisation": null,
+    "nom": "Programmation",
+    "detail": "Ma¯trise de plusieurs langages de programmation pour le dÚveloppement logiciel et web. ExpÚrience en programmation orientÚe objet et dÚveloppement d'applications.",
+    "type_de_service": "CompÚtence Technique",
+    "outils": "Java, Dart, Python, C#, JavaScript, React, Flask",
+    "est_actif": true,
+    "ordre_affichage": 0
+  }
+},
+{
+  "model": "api.service",
+  "pk": 20,
+  "fields": {
+    "experience": null,
+    "localisation": null,
+    "nom": "DÚveloppement Web & Mobile",
+    "detail": "DÚveloppement d'applications web et mobile modernes. Ma¯trise des frameworks frontend et backend. CrÚation d'interfaces responsive et performantes.",
+    "type_de_service": "CompÚtence Technique",
+    "outils": "Flutter, Odoo, Django, HTML, CSS",
+    "est_actif": true,
+    "ordre_affichage": 1
+  }
+},
+{
+  "model": "api.service",
+  "pk": 21,
+  "fields": {
+    "experience": null,
+    "localisation": null,
+    "nom": "Bases de donnÚes",
+    "detail": "Conception et gestion de bases de donnÚes relationnelles. Optimisation des requÛtes et modÚlisation de donnÚes. Administration de serveurs de bases de donnÚes.",
+    "type_de_service": "CompÚtence Technique",
+    "outils": "MySQL, SQL Server",
+    "est_actif": true,
+    "ordre_affichage": 2
+  }
+},
+{
+  "model": "api.service",
+  "pk": 22,
+  "fields": {
+    "experience": null,
+    "localisation": null,
+    "nom": "SystÞmes d'exploitation",
+    "detail": "Ma¯trise des environnements Windows, Linux et macOS. Administration systÞme et automatisation de tÔches. Configuration et maintenance de serveurs.",
+    "type_de_service": "CompÚtence Technique",
+    "outils": "Windows, Linux, macOS, Bash, PowerShell",
+    "est_actif": true,
+    "ordre_affichage": 3
+  }
+},
+{
+  "model": "api.service",
+  "pk": 23,
+  "fields": {
+    "experience": null,
+    "localisation": null,
+    "nom": "Outils & Versionnage",
+    "detail": "Gestion de versions avec Git et GitHub. Utilisation d'outils de dÚveloppement modernes. Collaboration en Úquipe et gestion de projets.",
+    "type_de_service": "CompÚtence Technique",
+    "outils": "Git, GitHub",
+    "est_actif": true,
+    "ordre_affichage": 4
+  }
+},
+{
+  "model": "api.service",
+  "pk": 24,
+  "fields": {
+    "experience": null,
+    "localisation": null,
+    "nom": "Design & Graphisme",
+    "detail": "CrÚation de designs et prototypes pour applications et sites web. Ma¯trise des outils de design graphique professionnels.",
+    "type_de_service": "CompÚtence CrÚative",
+    "outils": "Figma, Photoshop",
+    "est_actif": true,
+    "ordre_affichage": 5
+  }
+},
+{
+  "model": "api.service",
+  "pk": 25,
+  "fields": {
+    "experience": null,
+    "localisation": null,
+    "nom": "Soft Skills",
+    "detail": "CompÚtences interpersonnelles et professionnelles. Autonomie dans le travail, capacitÚ d'adaptation et esprit d'Úquipe. Sens du relationnel et communication efficace.",
+    "type_de_service": "CompÚtence Transversale",
+    "outils": "Autonomie, Autodidacte, Esprit d'Úquipe, Sens du relationnel",
+    "est_actif": true,
+    "ordre_affichage": 6
+  }
+},
+{
+  "model": "api.reseausocial",
+  "pk": 10,
+  "fields": {
+    "utilisateur": 6,
+    "nom_plateforme": "LinkedIn",
+    "lien": "https://www.linkedin.com/in/kablan-christ-brandonne-davy-brou-devs-7b5ab6394/",
+    "ordre_affichage": 0
+  }
+},
+{
+  "model": "api.reseausocial",
+  "pk": 11,
+  "fields": {
+    "utilisateur": 6,
+    "nom_plateforme": "GitHub",
+    "lien": "https://github.com/brandonnedavy",
+    "ordre_affichage": 1
+  }
+},
+{
+  "model": "api.reseausocial",
+  "pk": 12,
+  "fields": {
+    "utilisateur": 6,
+    "nom_plateforme": "Email",
+    "lien": "mailto:brandonnebrou257@gmail.com",
+    "ordre_affichage": 2
+  }
+},
+{
+  "model": "api.prisedecontact",
+  "pk": 1,
+  "fields": {
+    "nom_complet": "Test User",
+    "objet": "Test",
+    "message": "Hello",
+    "email": "test@test.com",
+    "date_envoi": "2026-03-06T01:16:39.993Z",
+    "traite": false
+  }
+}
+]

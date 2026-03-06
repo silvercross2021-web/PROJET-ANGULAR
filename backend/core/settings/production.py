@@ -27,3 +27,7 @@ CORS_ALLOWED_ORIGINS = os.environ.get("CORS_ALLOWED_ORIGINS", "").split(",")
 
 # Static files
 STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+# WhiteNoise middleware — insert after SecurityMiddleware (index 2, after CorsMiddleware at 0 and SecurityMiddleware at 1)
+MIDDLEWARE.insert(2, "whitenoise.middleware.WhiteNoiseMiddleware")
