@@ -27,7 +27,13 @@ export class SoundService {
 
     // Musique ON par défaut, on ne lit PLUS le localStorage pour forcer l'état actif !
     this.isMuted.set(false); 
+  }
 
+  private sequenceStarted = false;
+
+  startAudioSequence() {
+    if (this.sequenceStarted) return;
+    this.sequenceStarted = true;
     this.tryPlaySequence();
   }
 

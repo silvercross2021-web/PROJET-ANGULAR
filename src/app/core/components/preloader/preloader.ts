@@ -2,6 +2,7 @@ import { Component, AfterViewInit, ElementRef, ViewChild, NgZone } from '@angula
 import { gsap } from 'gsap';
 import { PortfolioService } from '../../../shared/services/PortfolioService';
 import { firstValueFrom } from 'rxjs';
+import { SoundService } from '../../services/sound.service';
 
 @Component({
   selector: 'app-preloader',
@@ -14,7 +15,7 @@ export class Preloader implements AfterViewInit {
   @ViewChild('preloader') preloaderElement!: ElementRef;
   private isDataLoaded = false;
 
-  constructor(private ngZone: NgZone, private portfolioService: PortfolioService) { }
+  constructor(private ngZone: NgZone, private portfolioService: PortfolioService, private soundService: SoundService) { }
 
   ngAfterViewInit() {
     // Si déjà vu dans cette session, on cache immédiatement
@@ -22,6 +23,7 @@ export class Preloader implements AfterViewInit {
       if (this.preloaderElement?.nativeElement) {
         this.preloaderElement.nativeElement.style.display = 'none';
       }
+      this.soundService.startAudioSequence();
       return;
     }
 
@@ -61,6 +63,9 @@ export class Preloader implements AfterViewInit {
           }
           // Marquer comme vu pour éviter de rejouer à chaque navigation
           sessionStorage.setItem('preloader-done', 'true');
+          
+          // Lancer la méthode d'essai d'autoplay MAINTENANT
+          this.soundService.startAudioSequence();
         }
       });
     });
