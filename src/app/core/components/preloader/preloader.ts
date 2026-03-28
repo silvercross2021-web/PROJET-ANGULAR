@@ -1,5 +1,7 @@
 import { Component, AfterViewInit, ElementRef, ViewChild, NgZone } from '@angular/core';
 import { gsap } from 'gsap';
+import { PortfolioService } from '../../../shared/services/PortfolioService';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-preloader',
@@ -10,8 +12,9 @@ import { gsap } from 'gsap';
 })
 export class Preloader implements AfterViewInit {
   @ViewChild('preloader') preloaderElement!: ElementRef;
+  private isDataLoaded = false;
 
-  constructor(private ngZone: NgZone) { }
+  constructor(private ngZone: NgZone, private portfolioService: PortfolioService) { }
 
   ngAfterViewInit() {
     // Si déjà vu dans cette session, on cache immédiatement
@@ -22,8 +25,17 @@ export class Preloader implements AfterViewInit {
       return;
     }
 
-    this.ngZone.runOutsideAngular(() => {
+    this.ngZone.runOutsideAngular(async () => {
       const letters = document.querySelectorAll('.letter');
+
+      // On attend les données de l'API s'il ne sont pas déjà là
+      if (this.portfolioService.snapshot === null) {
+        try {
+          await firstValueFrom(this.portfolioService.load());
+        } catch (e) {
+          console.error("Erreur lors du chargement des données portfolio", e);
+        }
+      }
 
       const tl = gsap.timeline();
 
@@ -36,7 +48,7 @@ export class Preloader implements AfterViewInit {
       }).to(this.preloaderElement.nativeElement, {
         opacity: 0,
         duration: 0.7,
-        delay: 1.2,
+        delay: 0.5, // Délai réduit car on a déjà attendu l'API
         ease: 'power2.inOut',
         onComplete: () => {
           if (this.preloaderElement?.nativeElement) {

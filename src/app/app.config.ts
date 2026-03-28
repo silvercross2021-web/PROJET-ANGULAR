@@ -6,7 +6,10 @@ import { PortfolioService } from './shared/services/PortfolioService';
 import { routes } from './app.routes';
 
 export function initPortfolio(portfolioService: PortfolioService) {
-  return () => portfolioService.init();
+  return () => {
+    portfolioService.load().subscribe();
+    return Promise.resolve();
+  };
 }
 
 export const appConfig: ApplicationConfig = {
