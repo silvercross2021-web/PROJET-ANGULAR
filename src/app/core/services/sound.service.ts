@@ -39,28 +39,31 @@ export class SoundService {
     const unlockAudio = () => {
       if (this.audioUnlocked) return;
       
-      // On tente de débloquer l'élément audio
+      // On tente de débloquer l'élément audio (seul un vrai clic/touch fonctionnera)
       this.music.play().then(() => {
         this.audioUnlocked = true;
-        // Si la séquence n'a pas encore le droit de démarrer (ex: données pas chargées), on remet en pause
+        
+        // Retrait des écouteurs UNIQUEMENT quand le déblocage a réussi !
+        document.removeEventListener('click', unlockAudio, { capture: true });
+        document.removeEventListener('touchstart', unlockAudio, { capture: true });
+        document.removeEventListener('keydown', unlockAudio, { capture: true });
+
+        // Si la séquence n'a pas encore le droit de démarrer, on remet en pause
         if (!this.sequenceStarted) {
           this.music.pause();
         } else if (!this.isMuted()) {
           this.isPlaying.set(true);
         }
-      }).catch(e => console.warn('Unlock failed', e));
-
-      document.removeEventListener('click', unlockAudio, true);
-      document.removeEventListener('scroll', unlockAudio, true);
-      document.removeEventListener('touchstart', unlockAudio, true);
-      document.removeEventListener('keydown', unlockAudio, true);
+      }).catch(e => {
+        // Le déblocage a échoué (ex: événement invalide pour le navigateur).
+        // On NE RETIRE PAS les écouteurs, on attendra le prochain clic !
+      });
     };
 
-    // 'true' pour capturer l'événement pendant la phase de capture (le plus tôt possible)
-    document.addEventListener('click', unlockAudio, true);
-    document.addEventListener('scroll', unlockAudio, true);
-    document.addEventListener('touchstart', unlockAudio, true);
-    document.addEventListener('keydown', unlockAudio, true);
+    const options = { capture: true };
+    document.addEventListener('click', unlockAudio, options);
+    document.addEventListener('touchstart', unlockAudio, options);
+    document.addEventListener('keydown', unlockAudio, options);
   }
 
   startAudioSequence() {
@@ -72,9 +75,6 @@ export class SoundService {
         this.audioUnlocked = true;
         this.isPlaying.set(true);
       }).catch(() => {
-        // L'autoplay pur a échoué (normal). 
-        // L'état isPlaying reste false. 
-        // Notre `setupEarlyUnlock` est toujours à l'écoute et prendra le relai au prochain clic !
         this.isPlaying.set(false);
       });
     }
