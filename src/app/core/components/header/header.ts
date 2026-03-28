@@ -14,8 +14,6 @@ import { SoundService } from '../../services/sound.service';
 export class Header implements OnInit, OnDestroy {
   isDark = false;
   menuOpen = false;
-  isMuted = true;
-
   // On écoute uniquement la confirmation du MenuOverlay (sens unique)
   private closeListener!: EventListener;
   private darkListener!: EventListener;
@@ -24,9 +22,7 @@ export class Header implements OnInit, OnDestroy {
     private ngZone: NgZone, 
     public langService: LanguageService,
     public soundService: SoundService
-  ) { 
-    this.isMuted = this.soundService.isMuted();
-  }
+  ) { }
 
   ngOnInit() {
     // Le MenuOverlay nous informe quand il se ferme via un lien de navigation
@@ -81,12 +77,8 @@ export class Header implements OnInit, OnDestroy {
   }
 
   toggleSound() {
-    // Premier clic = débloquer autoplay
-    this.soundService.handleFirstInteraction();
-    
-    // Puis faire le toggle
-    this.isMuted = this.soundService.toggle();
-    if (!this.isMuted) {
+    this.soundService.toggle();
+    if (!this.soundService.isMuted()) {
        this.soundService.playClick();
     }
   }

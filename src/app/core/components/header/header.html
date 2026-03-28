@@ -20,16 +20,19 @@
         </div>
 
         <!-- Bouton Son (Music toggle) -->
-        <button class="sound-btn" [class.playing]="!isMuted" (click)="toggleSound()" [title]="isMuted ? 'Activer le son' : 'Couper le son'">
-            <!-- Icône quand muet (Speaker off) -->
-            <svg *ngIf="isMuted" class="speaker-mute" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <button class="sound-btn" [class.playing]="soundService.isPlaying()" (click)="toggleSound()" [title]="soundService.isMuted() ? 'Activer le son' : 'Couper le son'">
+            <!-- Icône quand la musique ne joue pas -->
+            <svg *ngIf="!soundService.isPlaying()" class="speaker-mute" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                 <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                <line x1="23" y1="9" x2="17" y2="15"></line>
-                <line x1="17" y1="9" x2="23" y2="15"></line>
+                <!-- La croix apparaît seulement si on a manuellement 'muted' -->
+                <ng-container *ngIf="soundService.isMuted()">
+                    <line x1="23" y1="9" x2="17" y2="15"></line>
+                    <line x1="17" y1="9" x2="23" y2="15"></line>
+                </ng-container>
             </svg>
             
             <!-- Animation de vagues quand ça joue -->
-            <div *ngIf="!isMuted" class="sound-waves">
+            <div *ngIf="soundService.isPlaying()" class="sound-waves">
                 <span class="wave"></span>
                 <span class="wave"></span>
                 <span class="wave"></span>

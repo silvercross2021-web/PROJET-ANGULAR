@@ -1,4 +1,4 @@
-import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID, signal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
@@ -7,8 +7,9 @@ import { isPlatformBrowser } from '@angular/common';
 export class SoundService {
   private music!: HTMLAudioElement;
   private clickSound!: HTMLAudioElement;
-  private muted = false; // Musique ON par défaut
-  private isPlaying = false;
+  
+  public isMuted = signal(false); 
+  public isPlaying = signal(false);
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     if (isPlatformBrowser(this.platformId)) {
@@ -24,27 +25,23 @@ export class SoundService {
     this.clickSound = new Audio('assets/audio/click.mp3');
     this.clickSound.volume = 0.3;
 
-    // Load preference
-    const saved = localStorage.getItem('sound-muted');
-    if (saved !== null) {
-      this.muted = saved === 'true';
-    }
+    // Musique ON par défaut, on ne lit PLUS le localStorage pour forcer l'état actif !
+    this.isMuted.set(false); 
 
-    if (!this.muted) {
-      this.tryPlaySequence();
-    }
+    this.tryPlaySequence();
   }
 
   private tryPlaySequence() {
     // 1. Tenter l'autoplay immédiat
     this.music.play().then(() => {
-      this.isPlaying = true;
+      this.isPlaying.set(true);
     }).catch(() => {
       // 2. Si bloqué, on attend n'importe quelle intéraction sur la page
+      this.isPlaying.set(false);
       const unlockAudio = () => {
-        if (!this.muted && !this.isPlaying) {
+        if (!this.isMuted() && !this.isPlaying()) {
           this.music.play().then(() => {
-            this.isPlaying = true;
+            this.isPlaying.set(true);
           }).catch(e => console.error(e));
         }
         document.removeEventListener('click', unlockAudio);
@@ -61,34 +58,25 @@ export class SoundService {
   }
 
   toggle() {
-    if (!isPlatformBrowser(this.platformId)) return this.muted;
+    if (!isPlatformBrowser(this.platformId)) return this.isMuted();
     
-    this.muted = !this.muted;
-    localStorage.setItem('sound-muted', String(this.muted));
+    this.isMuted.set(!this.isMuted());
     
-    if (this.muted) {
+    if (this.isMuted()) {
       this.music.pause();
-      this.isPlaying = false;
+      this.isPlaying.set(false);
     } else {
-      this.music.play().then(() => this.isPlaying = true).catch(() => {});
+      this.music.play().then(() => this.isPlaying.set(true)).catch(() => this.isPlaying.set(false));
     }
-    return this.muted;
-  }
-
-  isMuted() {
-    return this.muted;
+    return this.isMuted();
   }
 
   playClick() {
-    if (!isPlatformBrowser(this.platformId) || this.muted) return;
+    if (!isPlatformBrowser(this.platformId) || this.isMuted()) return;
     
     // Clone pour permettre des clics rapides
     const clickClone = this.clickSound.cloneNode() as HTMLAudioElement;
     clickClone.volume = 0.3;
     clickClone.play().catch(() => {});
-  }
-
-  handleFirstInteraction() {
-     // Désormais géré automatiquement par tryPlaySequence()
   }
 }
