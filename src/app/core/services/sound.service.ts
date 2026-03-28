@@ -17,50 +17,67 @@ export class SoundService {
     }
   }
 
+  private sequenceStarted = false;
+  private audioUnlocked = false;
+
   private initAudio() {
     this.music = new Audio('assets/audio/happy.mp3');
     this.music.loop = true;
-    this.music.volume = 0.4; // Volume doux
+    this.music.volume = 0.4;
     
     this.clickSound = new Audio('assets/audio/click.mp3');
     this.clickSound.volume = 0.3;
 
-    // Musique ON par défaut, on ne lit PLUS le localStorage pour forcer l'état actif !
     this.isMuted.set(false); 
+
+    // Attacher les écouteurs IMMÉDIATEMENT pour capturer le tout premier clic,
+    // même s'il a lieu pendant l'écran de chargement.
+    this.setupEarlyUnlock();
   }
 
-  private sequenceStarted = false;
+  private setupEarlyUnlock() {
+    const unlockAudio = () => {
+      if (this.audioUnlocked) return;
+      
+      // On tente de débloquer l'élément audio
+      this.music.play().then(() => {
+        this.audioUnlocked = true;
+        // Si la séquence n'a pas encore le droit de démarrer (ex: données pas chargées), on remet en pause
+        if (!this.sequenceStarted) {
+          this.music.pause();
+        } else if (!this.isMuted()) {
+          this.isPlaying.set(true);
+        }
+      }).catch(e => console.warn('Unlock failed', e));
+
+      document.removeEventListener('click', unlockAudio, true);
+      document.removeEventListener('scroll', unlockAudio, true);
+      document.removeEventListener('touchstart', unlockAudio, true);
+      document.removeEventListener('keydown', unlockAudio, true);
+    };
+
+    // 'true' pour capturer l'événement pendant la phase de capture (le plus tôt possible)
+    document.addEventListener('click', unlockAudio, true);
+    document.addEventListener('scroll', unlockAudio, true);
+    document.addEventListener('touchstart', unlockAudio, true);
+    document.addEventListener('keydown', unlockAudio, true);
+  }
 
   startAudioSequence() {
     if (this.sequenceStarted) return;
     this.sequenceStarted = true;
-    this.tryPlaySequence();
-  }
-
-  private tryPlaySequence() {
-    // 1. Tenter l'autoplay immédiat
-    this.music.play().then(() => {
-      this.isPlaying.set(true);
-    }).catch(() => {
-      // 2. Si bloqué, on attend n'importe quelle intéraction sur la page
-      this.isPlaying.set(false);
-      const unlockAudio = () => {
-        if (!this.isMuted() && !this.isPlaying()) {
-          this.music.play().then(() => {
-            this.isPlaying.set(true);
-          }).catch(e => console.error(e));
-        }
-        document.removeEventListener('click', unlockAudio);
-        document.removeEventListener('scroll', unlockAudio);
-        document.removeEventListener('touchstart', unlockAudio);
-        document.removeEventListener('keydown', unlockAudio);
-      };
-
-      document.addEventListener('click', unlockAudio, { once: true });
-      document.addEventListener('scroll', unlockAudio, { once: true });
-      document.addEventListener('touchstart', unlockAudio, { once: true });
-      document.addEventListener('keydown', unlockAudio, { once: true });
-    });
+    
+    if (!this.isMuted()) {
+      this.music.play().then(() => {
+        this.audioUnlocked = true;
+        this.isPlaying.set(true);
+      }).catch(() => {
+        // L'autoplay pur a échoué (normal). 
+        // L'état isPlaying reste false. 
+        // Notre `setupEarlyUnlock` est toujours à l'écoute et prendra le relai au prochain clic !
+        this.isPlaying.set(false);
+      });
+    }
   }
 
   toggle() {
