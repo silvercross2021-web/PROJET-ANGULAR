@@ -7,13 +7,22 @@ import { gsap } from 'gsap';
   providedIn: 'root',
 })
 export class RouteTransitionService {
+  private isFirstNavigation = true;
+
   constructor(private router: Router, private ngZone: NgZone) {
     this.router.events.pipe(
       filter(event => event instanceof NavigationStart || event instanceof NavigationEnd)
-    ).subscribe(event => {
+    ).subscribe((event: any) => {
       if (event instanceof NavigationStart) {
+        if (event.id === 1 || this.isFirstNavigation) {
+          return; // Le premier chargement est géré par le Preloader
+        }
         this.animateOut();
       } else if (event instanceof NavigationEnd) {
+        if (this.isFirstNavigation) {
+          this.isFirstNavigation = false;
+          return;
+        }
         // Small delay to ensure view is rendered before animating in
         setTimeout(() => this.animateIn(), 100);
       }
