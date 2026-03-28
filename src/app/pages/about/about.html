@@ -10,7 +10,7 @@
         <div class="page-header">
             <span class="page-num">03</span>
             <h1 class="page-title">
-                <span class="line-wrap"><span class="line-inner">À PROPOS</span></span>
+                <span class="line-wrap"><span class="line-inner">{{ lang === 'fr' ? 'À PROPOS' : 'ABOUT ME' }}</span></span>
             </h1>
         </div>
 
@@ -18,23 +18,22 @@
             <!-- Colonne portrait -->
             <div class="about-portrait">
                 <div class="portrait-img">
-                    <img *ngIf="profil?.photo_profil" [src]="profil!.photo_profil" [alt]="profil!.prenom + ' ' + profil!.nom" class="portrait-photo">
+                    <img *ngIf="profil?.photo_profil" [src]="profil!.photo_profil" [alt]="profil!.prenom + ' ' + profil!.nom" class="portrait-photo" (error)="profil!.photo_profil = ''">
                     <div *ngIf="!profil?.photo_profil" class="portrait-placeholder">{{ profil ? (profil.prenom[0] + profil.nom[0]).toUpperCase() : '' }}</div>
                 </div>
 
                 <div class="portrait-meta" *ngIf="profil">
                     <div class="meta-item">
-                        <span class="meta-label">Basé à</span>
-                        <span class="meta-value">Côte d'Ivoire</span>
+                        <span class="meta-label">{{ lang === 'fr' ? 'Basé à' : 'Based in' }}</span>
+                        <span class="meta-value">{{ lang === 'fr' ? 'Côte d\'Ivoire' : 'Ivory Coast' }}</span>
                     </div>
                     <div class="meta-item" *ngIf="profil.disponibilite">
-                        <span class="meta-label">Disponible</span>
+                        <span class="meta-label">{{ lang === 'fr' ? 'Disponible' : 'Available' }}</span>
                         <span class="meta-value meta-available">● {{ profil.disponibilite }}</span>
                     </div>
                     <div class="meta-item">
                         <span class="meta-label">Email</span>
-                        <a [href]="'mailto:' + profil.email"
-                            class="meta-value meta-link">{{ profil.email }}</a>
+                        <a [href]="'mailto:' + profil.email" class="meta-value meta-link">{{ profil.email }}</a>
                     </div>
                 </div>
             </div>
@@ -42,8 +41,11 @@
             <!-- Colonne texte -->
             <div class="about-text">
                 <p class="about-intro" *ngIf="profil">
-                    Je suis <strong>{{ profil.prenom }} {{ profil.nom }}</strong>,
-                    {{ profil.titre || '' }}.
+                    @if (lang === 'fr') {
+                        Je suis <strong>{{ profil.prenom }} {{ profil.nom }}</strong>, {{ profil.titre || '' }}.
+                    } @else {
+                        I am <strong>{{ profil.prenom }} {{ profil.nom }}</strong>, {{ profil.titre || '' }}.
+                    }
                 </p>
 
                 <p *ngIf="profil">{{ profil.description }}</p>
@@ -60,7 +62,7 @@
 
                 <!-- Timeline expérience dynamique -->
                 <div class="experience-timeline" *ngIf="experiences.length > 0">
-                    <h3 class="timeline-title">Expériences</h3>
+                    <h3 class="timeline-title">{{ lang === 'fr' ? 'Expériences' : 'Experience' }}</h3>
                     <div class="timeline-item" *ngFor="let exp of experiences">
                         <span class="timeline-year">{{ formatDate(exp.date_debut) }} — {{ formatDate(exp.date_fin) }}</span>
                         <div class="timeline-content">
@@ -70,8 +72,11 @@
                     </div>
                 </div>
 
-                <a *ngIf="profil?.lien_cv" [href]="profil!.lien_cv" class="cta-btn" download>↓ Télécharger mon CV</a>
+                <a *ngIf="profil?.lien_cv" [href]="profil!.lien_cv" class="cta-btn" download>
+                    {{ lang === 'fr' ? '↓ Télécharger mon CV' : '↓ Download my CV' }}
+                </a>
             </div>
         </div>
     </div>
+
 </div>

@@ -15,7 +15,9 @@
 
         <div class="contact-layout">
             <div class="contact-info">
-                <p class="contact-intro">Vous avez un projet ? Une idée ? Travaillons ensemble.</p>
+                <p class="contact-intro">
+                    {{ lang === 'fr' ? 'Vous avez un projet ? Une idée ? Travaillons ensemble.' : 'Got a project? An idea? Let\'s work together.' }}
+                </p>
 
                 <div class="contact-email-big" *ngIf="profil">
                     <a [href]="'mailto:' + profil.email" class="email-link">
@@ -32,34 +34,30 @@
 
             <form class="contact-form" (submit)="submitForm($event)" *ngIf="!sent">
                 <div class="form-group">
-                    <label for="name">Nom</label>
-                    <input id="name" type="text" placeholder="Votre nom" [(ngModel)]="formData.name" name="name"
-                        required>
+                    <label for="name">{{ lang === 'fr' ? 'Nom' : 'Name' }}</label>
+                    <input id="name" type="text" [placeholder]="lang === 'fr' ? 'Votre nom' : 'Your name'" [(ngModel)]="formData.name" name="name" required>
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input id="email" type="email" placeholder="votre@email.com" [(ngModel)]="formData.email"
-                        name="email" required>
+                    <input id="email" type="email" placeholder="votre@email.com" [(ngModel)]="formData.email" name="email" required>
                 </div>
                 <div class="form-group">
-                    <label for="objet">Objet</label>
-                    <input id="objet" type="text" placeholder="Objet de votre message" [(ngModel)]="formData.objet"
-                        name="objet">
+                    <label for="objet">{{ lang === 'fr' ? 'Objet' : 'Subject' }}</label>
+                    <input id="objet" type="text" [placeholder]="lang === 'fr' ? 'Objet de votre message' : 'Subject of your message'" [(ngModel)]="formData.objet" name="objet">
                 </div>
                 <div class="form-group">
                     <label for="message">Message</label>
-                    <textarea id="message" rows="5" placeholder="Décrivez votre projet..."
-                        [(ngModel)]="formData.message" name="message" required></textarea>
+                    <textarea id="message" rows="5" [placeholder]="lang === 'fr' ? 'Décrivez votre projet...' : 'Describe your project...'" [(ngModel)]="formData.message" name="message" required></textarea>
                 </div>
                 <p class="form-error" *ngIf="error">{{ error }}</p>
                 <button type="submit" class="submit-btn" [disabled]="sending">
-                    {{ sending ? 'Envoi en cours...' : 'Envoyer le message →' }}
+                    {{ sending ? (lang === 'fr' ? 'Envoi en cours...' : 'Sending...') : (lang === 'fr' ? 'Envoyer le message →' : 'Send message →') }}
                 </button>
             </form>
 
             <div class="contact-success" *ngIf="sent">
-                <p>✓ Merci ! Votre message a bien été envoyé. Je vous répondrai rapidement.</p>
-                <button class="cta-btn" (click)="sent = false">Envoyer un autre message</button>
+                <p>{{ lang === 'fr' ? '✓ Merci ! Votre message a bien été envoyé. Je vous répondrai rapidement.' : '✓ Thank you! Your message has been sent. I\'ll get back to you shortly.' }}</p>
+                <button class="cta-btn" (click)="sent = false">{{ lang === 'fr' ? 'Envoyer un autre message' : 'Send another message' }}</button>
             </div>
         </div>
     </div>

@@ -1,11 +1,13 @@
-import { Component, AfterViewInit, NgZone, OnInit } from '@angular/core';
+import { Component, AfterViewInit, NgZone, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { gsap } from 'gsap';
+import { Subscription } from 'rxjs';
 import { PortfolioService } from '../../shared/services/PortfolioService';
 import { ContactService } from '../../shared/services/ContactService';
 import { IUsers } from '../../shared/models/IUsers';
 import { ISocial } from '../../shared/models/ISocial';
+import { LanguageService, Lang } from '../../shared/services/LanguageService';
 
 @Component({
   selector: 'app-contact',
@@ -14,24 +16,33 @@ import { ISocial } from '../../shared/models/ISocial';
   templateUrl: './contact.html',
   styleUrl: './contact.scss',
 })
-export class Contact implements OnInit, AfterViewInit {
+export class Contact implements OnInit, AfterViewInit, OnDestroy {
   formData = { name: '', email: '', message: '', objet: '' };
   profil: IUsers | null = null;
   reseaux: ISocial[] = [];
   sending = false;
   sent = false;
   error = '';
+  lang: Lang = 'fr';
+  private langSub!: Subscription;
 
   constructor(
     private ngZone: NgZone,
     private portfolioService: PortfolioService,
-    private contactService: ContactService
+    private contactService: ContactService,
+    private langService: LanguageService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
     this.portfolioService.load().subscribe(data => {
       this.profil = data.profil;
       this.reseaux = data.reseaux;
+      this.cdr.detectChanges();
+    });
+    this.langSub = this.langService.lang$.subscribe(l => {
+      this.lang = l;
+      this.cdr.detectChanges();
     });
   }
 
@@ -64,8 +75,12 @@ export class Contact implements OnInit, AfterViewInit {
       },
       error: () => {
         this.sending = false;
-        this.error = 'Une erreur est survenue. Veuillez réessayer.';
+        this.error = this.lang === 'fr'
+          ? 'Une erreur est survenue. Veuillez réessayer.'
+          : 'An error occurred. Please try again.';
       }
     });
   }
+
+  ngOnDestroy() { this.langSub?.unsubscribe(); }
 }

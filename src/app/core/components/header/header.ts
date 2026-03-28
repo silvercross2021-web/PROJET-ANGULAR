@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { LanguageService } from '../../../shared/services/LanguageService';
 
 @Component({
   selector: 'app-header',
@@ -17,7 +18,7 @@ export class Header implements OnInit, OnDestroy {
   private closeListener!: EventListener;
   private darkListener!: EventListener;
 
-  constructor(private ngZone: NgZone) { }
+  constructor(private ngZone: NgZone, public langService: LanguageService) { }
 
   ngOnInit() {
     // Le MenuOverlay nous informe quand il se ferme via un lien de navigation
@@ -61,6 +62,10 @@ export class Header implements OnInit, OnDestroy {
     document.documentElement.classList.toggle('dark-mode', this.isDark);
     localStorage.setItem('dark-mode', String(this.isDark));
     window.dispatchEvent(new CustomEvent('dark-mode-change', { detail: { dark: this.isDark } }));
+  }
+
+  toggleLang() {
+    this.langService.toggle();
   }
 
   ngOnDestroy() {

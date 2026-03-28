@@ -1,10 +1,12 @@
-import { Component, AfterViewInit, NgZone, OnInit } from '@angular/core';
+import { Component, AfterViewInit, NgZone, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { gsap } from 'gsap';
+import { Subscription } from 'rxjs';
 import { PortfolioService } from '../../shared/services/PortfolioService';
 import { IUsers } from '../../shared/models/IUsers';
 import { IService } from '../../shared/models/IService';
 import { Iexperience } from '../../shared/models/Iexperience';
+import { LanguageService, Lang } from '../../shared/services/LanguageService';
 
 @Component({
   selector: 'app-about',
@@ -13,18 +15,25 @@ import { Iexperience } from '../../shared/models/Iexperience';
   templateUrl: './about.html',
   styleUrl: './about.scss',
 })
-export class About implements OnInit, AfterViewInit {
+export class About implements OnInit, AfterViewInit, OnDestroy {
   profil: IUsers | null = null;
   services: IService[] = [];
   experiences: Iexperience[] = [];
+  lang: Lang = 'fr';
+  private langSub!: Subscription;
 
-  constructor(private ngZone: NgZone, private portfolioService: PortfolioService) { }
+  constructor(private ngZone: NgZone, private portfolioService: PortfolioService, private langService: LanguageService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.portfolioService.load().subscribe(data => {
       this.profil = data.profil;
       this.services = data.services;
       this.experiences = data.experiences;
+      this.cdr.detectChanges();
+    });
+    this.langSub = this.langService.lang$.subscribe(l => {
+      this.lang = l;
+      this.cdr.detectChanges();
     });
   }
 
@@ -37,10 +46,12 @@ export class About implements OnInit, AfterViewInit {
   }
 
   formatDate(dateStr: string | null | undefined): string {
-    if (!dateStr) return 'Présent';
+    if (!dateStr) return this.lang === 'fr' ? 'Présent' : 'Present';
     const d = new Date(dateStr);
     return d.getFullYear().toString();
   }
+
+  ngOnDestroy() { this.langSub?.unsubscribe(); }
 
   ngAfterViewInit() {
     this.ngZone.runOutsideAngular(() => {

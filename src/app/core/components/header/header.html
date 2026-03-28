@@ -13,10 +13,10 @@
 
     <!-- RIGHT: Lang + Dark toggle + Menu button -->
     <div class="header-right">
-        <div class="lang-switch">
-            <span class="active">FR</span>
+        <div class="lang-switch" (click)="toggleLang()" style="cursor:pointer">
+            <span [class.active]="(langService.lang$ | async) === 'fr'">FR</span>
             <span class="sep">/</span>
-            <span>EN</span>
+            <span [class.active]="(langService.lang$ | async) === 'en'">EN</span>
         </div>
 
         <!-- Bouton dark mode (lune / soleil) -->

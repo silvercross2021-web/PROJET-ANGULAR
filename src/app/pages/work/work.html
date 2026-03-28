@@ -21,7 +21,7 @@
 
             <!-- Image projet si disponible -->
             <img *ngIf="hoveredProject?.image" [src]="hoveredProject!.image" [alt]="hoveredProject!.titre"
-                class="preview-img">
+                class="preview-img" (error)="hoveredProject!.image = ''">
 
             <!-- Forme déco intérieure (fallback si pas d'image) -->
             <div class="preview-deco" *ngIf="hoveredProject && !hoveredProject.image"
@@ -46,7 +46,7 @@
     <!-- === CONTENU DROIT === -->
     <div class="page-content">
         <div class="work-header">
-            <h1 class="work-title">PROJETS</h1>
+            <h1 class="work-title">{{ lang === 'fr' ? 'PROJETS' : 'PROJECTS' }}</h1>
             <span class="work-count">{{ projects.length }}</span>
         </div>
 

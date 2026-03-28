@@ -28,6 +28,18 @@ export class Preloader implements AfterViewInit {
     this.ngZone.runOutsideAngular(async () => {
       const letters = document.querySelectorAll('.letter');
 
+      const tl = gsap.timeline();
+
+      // On affiche les lettres IMMEDIATEMENT (donne un retour visuel à l'utilisateur)
+      // et ça dure pendant le chargement des données.
+      tl.to(letters, {
+        opacity: 1,
+        y: 0,
+        stagger: 0.04,
+        duration: 0.35,
+        ease: 'power2.out'
+      });
+
       // On attend les données de l'API s'il ne sont pas déjà là
       if (this.portfolioService.snapshot === null) {
         try {
@@ -37,15 +49,8 @@ export class Preloader implements AfterViewInit {
         }
       }
 
-      const tl = gsap.timeline();
-
-      tl.to(letters, {
-        opacity: 1,
-        y: 0,
-        stagger: 0.04,
-        duration: 0.35,
-        ease: 'power2.out'
-      }).to(this.preloaderElement.nativeElement, {
+      // Une fois chargé, on masque l'écran
+      tl.to(this.preloaderElement.nativeElement, {
         opacity: 0,
         duration: 0.7,
         delay: 0.5, // Délai réduit car on a déjà attendu l'API

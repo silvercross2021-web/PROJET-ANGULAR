@@ -9,6 +9,7 @@ export class PortfolioService {
   private apiUrl = `${environment.apiUrl}/v1/public/portfolio/`;
   private cache$: Observable<IPortfolio> | null = null;
   private data: IPortfolio | null = null;
+  private CACHE_KEY = 'portfolio_data';
 
   constructor(private http: HttpClient) {}
 
@@ -19,11 +20,25 @@ export class PortfolioService {
     });
   }
 
-  /** Retourne un Observable qui ne fait qu'UN seul appel HTTP grâce à shareReplay */
+  /** Retourne un Observable qui exploite le cache immédiat puis met à jour via l'API */
   load(): Observable<IPortfolio> {
     if (!this.cache$) {
+      // Tentative de récupération du cache local (immédiat)
+      const savedData = localStorage.getItem(this.CACHE_KEY);
+      if (savedData) {
+        try {
+          this.data = JSON.parse(savedData);
+        } catch (e) {
+          console.error("Erreur lecture cache", e);
+        }
+      }
+
+      // Appel API en arrière-plan (Stale-While-Revalidate)
       this.cache$ = this.http.get<IPortfolio>(this.apiUrl).pipe(
-        tap(d => this.data = d),
+        tap(d => {
+          this.data = d;
+          localStorage.setItem(this.CACHE_KEY, JSON.stringify(d));
+        }),
         shareReplay(1)
       );
     }
