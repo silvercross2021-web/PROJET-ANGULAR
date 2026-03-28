@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { LanguageService } from '../../../shared/services/LanguageService';
+import { SoundService } from '../../services/sound.service';
 
 @Component({
   selector: 'app-header',
@@ -13,12 +14,19 @@ import { LanguageService } from '../../../shared/services/LanguageService';
 export class Header implements OnInit, OnDestroy {
   isDark = false;
   menuOpen = false;
+  isMuted = true;
 
   // On écoute uniquement la confirmation du MenuOverlay (sens unique)
   private closeListener!: EventListener;
   private darkListener!: EventListener;
 
-  constructor(private ngZone: NgZone, public langService: LanguageService) { }
+  constructor(
+    private ngZone: NgZone, 
+    public langService: LanguageService,
+    public soundService: SoundService
+  ) { 
+    this.isMuted = this.soundService.isMuted();
+  }
 
   ngOnInit() {
     // Le MenuOverlay nous informe quand il se ferme via un lien de navigation
@@ -44,6 +52,7 @@ export class Header implements OnInit, OnDestroy {
 
   /** UN seul endroit gère le toggle : le Header dispatche, MenuOverlay reçoit */
   toggleMenu() {
+    this.soundService.playClick();
     this.menuOpen = !this.menuOpen;
     window.dispatchEvent(
       new CustomEvent('menu-toggle', { detail: { open: this.menuOpen } })
@@ -52,12 +61,14 @@ export class Header implements OnInit, OnDestroy {
 
   closeMenuIfOpen() {
     if (this.menuOpen) {
+      this.soundService.playClick();
       this.menuOpen = false;
       window.dispatchEvent(new CustomEvent('menu-toggle', { detail: { open: false } }));
     }
   }
 
   toggleDark() {
+    this.soundService.playClick();
     this.isDark = !this.isDark;
     document.documentElement.classList.toggle('dark-mode', this.isDark);
     localStorage.setItem('dark-mode', String(this.isDark));
@@ -65,7 +76,19 @@ export class Header implements OnInit, OnDestroy {
   }
 
   toggleLang() {
+    this.soundService.playClick();
     this.langService.toggle();
+  }
+
+  toggleSound() {
+    // Premier clic = débloquer autoplay
+    this.soundService.handleFirstInteraction();
+    
+    // Puis faire le toggle
+    this.isMuted = this.soundService.toggle();
+    if (!this.isMuted) {
+       this.soundService.playClick();
+    }
   }
 
   ngOnDestroy() {

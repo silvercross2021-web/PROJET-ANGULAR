@@ -1,0 +1,53 @@
+# 🎥 Script de Présentation du Portfolio (Angular + Django)
+
+## ⏱️ Structure Recommandée (3 à 5 minutes)
+
+1. **Introduction (30s)** : Qui vous êtes et le but du projet.
+2. **Démonstration Visuelle (1m30)** : Visite guidée du site en ligne.
+3. **Architecture Technique (1m)** : Comment ça fonctionne "sous le capot".
+4. **Le Processus de Déploiement (1m)** : L'infrastructure Cloud.
+5. **Conclusion (30s)** : Compétences acquises et remerciements.
+
+---
+
+## 📝 Script Détaillé et Points à Aborder
+
+### 1️⃣ Introduction
+* **Action :** Montrer la page d'accueil de votre site (`https://projet-angular-sooty.vercel.app`).
+* **Texte suggéré :**
+> *"Bonjour, je m'appelle Brandonne Davy. Je vous présente aujourd'hui mon portfolio de Développeur Créatif. L'objectif de ce projet était de créer une vitrine professionnelle interactive et performante pour mettre en avant mes compétences, mes expériences et mes projets."*
+
+### 2️⃣ Démonstration Visuelle du Site
+* **Action :** Naviguez fluidement à travers les pages (Accueil, Work, About, Contact). Scrollez doucement pour montrer les animations.
+* **Texte suggéré :**
+> *"Le site offre une expérience utilisateur fluide grâce à des animations dynamiques. Sur la page d'accueil, on retrouve une présentation rapide. La section 'Work' liste mes différents projets avec un filtrage possible. La page 'About' détaille mon parcours et mes compétences, et enfin, une page 'Contact' fonctionnelle permet de m'envoyer un message directement."*
+* **Détail à souligner :** Montrez le curseur personnalisé ou le menu overlay si vous en êtes fier. Mentionnez que le design s'adapte aux mobiles (responsive).
+
+### 3️⃣ Architecture Technique (Le Code)
+* **Action :** Montrez votre VS Code (ou un schéma si vous en avez un), ou restez sur le site mais parlez de la stack.
+* **Texte suggéré :**
+> *"Ce projet est architecturé autour d'une stack moderne séparant le Frontend et le Backend :*
+> * *Côté **Frontend**, j'ai utilisé **Angular** (version récente) pour créer une Single Page Application robuste. J'ai intégré des bibliothèques comme Locomotive Scroll pour les effets de défilement immersifs.*
+> * *Côté **Backend**, le cœur logique et la base de données sont gérés par **Django** et **Django REST Framework (Python)**. Le frontend communique avec le backend via une API REST sécurisée pour récupérer toutes les données : mes projets, mes expériences, et gérer les formulaires de contact.*
+
+### 4️⃣ Le Processus de Déploiement (L'Hébergement)
+* **Action :** Montrez brièvement les tableaux de bord Vercel et Render (ou GitHub).
+* **Texte suggéré :**
+> *"Récemment, j'ai mis en ligne l'ensemble du projet de manière professionnelle et 100% gratuite :*
+> * *Le code source est versionné sur **GitHub**.*
+> * *L'API Django et la base de données PostgreSQL sont hébergées sur **Render**. J'ai migré mes données locales SQLite vers PostgreSQL grâce à un script d'export/import (dumpdata/loaddata).*
+> * *Le frontend Angular est déployé sur **Vercel**, qui offre des performances optimales pour les applications SPA. Les deux services communiquent en toute sécurité grâce à la configuration du CORS (Cross-Origin Resource Sharing)."*
+
+### 5️⃣ Conclusion
+* **Action :** Revenez sur la page d'accueil de votre portfolio avec vos réseaux sociaux visibles.
+* **Texte suggéré :**
+> *"Ce projet m'a permis de consolider mes compétences Full-Stack, de la conception UI/UX jusqu'au déploiement Cloud, en passant par le développement frontend et la conception d'API backend. Le site est désormais live, vous pouvez le visiter. Merci de votre attention !"*
+
+---
+
+## 💡 Conseils pour l'enregistrement
+
+1. **Testez avant :** Faites un tour sur votre site pour vérifier que tout charge bien, que les images s'affichent et que l'API répond rapidement (Render peut mettre 30s à se réveiller s'il était inactif, donc ouvrez le site 1 minute avant d'enregistrer).
+2. **Nettoyez l'écran :** Fermez les onglets inutiles, masquez la barre des tâches si possible.
+3. **Logiciel :** Si vous n'avez pas de logiciel d'enregistrement, vous pouvez utiliser **OBS Studio** (gratuit) ou simplement un outil comme **Loom** ou l'enregistrement d'écran intégré à Windows 11 (Outil Capture d'écran). 
+4. **Le rythme :** Parlez calmement, n'allez pas trop vite avec la souris. Les recruteurs aiment qu'on explique *pourquoi* on a fait un choix technique.

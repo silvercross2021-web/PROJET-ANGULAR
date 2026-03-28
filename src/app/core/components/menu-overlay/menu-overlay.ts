@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { PortfolioService } from '../../../shared/services/PortfolioService';
 import { ISocial } from '../../../shared/models/ISocial';
+import { SoundService } from '../../services/sound.service';
 
 @Component({
   selector: 'app-menu-overlay',
@@ -16,7 +17,11 @@ export class MenuOverlay implements OnInit, OnDestroy {
   reseaux: ISocial[] = [];
   private listener!: EventListener;
 
-  constructor(private ngZone: NgZone, private portfolioService: PortfolioService) { }
+  constructor(
+    private ngZone: NgZone, 
+    private portfolioService: PortfolioService,
+    private soundService: SoundService
+  ) { }
 
   ngOnInit() {
     this.listener = (e: Event) => {
@@ -31,6 +36,7 @@ export class MenuOverlay implements OnInit, OnDestroy {
   }
 
   close() {
+    this.soundService.playClick();
     this.isOpen = false;
     window.dispatchEvent(new CustomEvent('menu-closed-by-nav'));
   }

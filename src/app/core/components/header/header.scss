@@ -99,6 +99,76 @@
         }
     }
 
+    /* Bouton Son avec Vagues Animées */
+    .sound-btn {
+        width: 40px;
+        height: 40px;
+        background: transparent;
+        border: 1px solid color-mix(in srgb, var(--color-primary) 15%, transparent);
+        border-radius: 50%;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-primary);
+        transition: all 0.4s ease;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+
+        .speaker-mute {
+            width: 18px;
+            height: 18px;
+            transition: transform 0.3s ease;
+        }
+
+        .sound-waves {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 2.5px;
+            height: 16px;
+            
+            .wave {
+                display: block;
+                width: 2.5px;
+                background-color: var(--color-primary);
+                border-radius: 3px;
+                animation: soundWave 1s ease-in-out infinite alternate;
+                
+                &:nth-child(1) { height: 40%; animation-delay: 0.1s; }
+                &:nth-child(2) { height: 100%; animation-delay: 0.3s; }
+                &:nth-child(3) { height: 60%; animation-delay: 0.5s; }
+                &:nth-child(4) { height: 80%; animation-delay: 0.2s; }
+            }
+        }
+
+        &:hover {
+            border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
+            background: color-mix(in srgb, var(--color-primary) 5%, transparent);
+            transform: scale(1.05);
+
+            .speaker-mute {
+                transform: scale(1.1);
+            }
+        }
+
+        &.playing {
+            border-color: color-mix(in srgb, var(--color-primary) 30%, transparent);
+            
+            &::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                border-radius: 50%;
+                background: var(--color-primary);
+                opacity: 0.05;
+                animation: pulseBg 2s infinite ease-in-out;
+            }
+        }
+    }
+
+
     /* Bouton menu */
     .menu-btn {
         background: transparent;
@@ -223,4 +293,16 @@
         display: none;
         /* Hide site name on small screens to save space */
     }
+}
+
+/* ====== KEYFRAMES AUDIO ====== */
+@keyframes soundWave {
+    0% { height: 20%; }
+    100% { height: 100%; }
+}
+
+@keyframes pulseBg {
+    0% { transform: scale(1); opacity: 0.1; }
+    50% { transform: scale(1.15); opacity: 0.05; }
+    100% { transform: scale(1); opacity: 0.1; }
 }
