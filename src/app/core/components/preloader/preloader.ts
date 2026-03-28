@@ -18,22 +18,30 @@ export class Preloader implements AfterViewInit {
   constructor(private ngZone: NgZone, private portfolioService: PortfolioService, private soundService: SoundService) { }
 
   ngAfterViewInit() {
-    // Si déjà vu dans cette session, on cache immédiatement
-    if (sessionStorage.getItem('preloader-done') === 'true') {
-      if (this.preloaderElement?.nativeElement) {
-        this.preloaderElement.nativeElement.style.display = 'none';
-      }
-      this.soundService.startAudioSequence();
-      return;
-    }
-
     this.ngZone.runOutsideAngular(async () => {
-      const letters = document.querySelectorAll('.letter');
+      const isReturningVisitor = sessionStorage.getItem('preloader-done') === 'true';
 
+      // On s'assure que les données sont là (soit cache, soit API)
+      const dataPromise = this.portfolioService.snapshot === null 
+        ? firstValueFrom(this.portfolioService.load()).catch(() => null)
+        : Promise.resolve(this.portfolioService.snapshot);
+
+      if (isReturningVisitor) {
+        if (this.preloaderElement?.nativeElement) {
+          this.preloaderElement.nativeElement.style.display = 'none';
+        }
+        await dataPromise;
+        // On attend la prochaine frame d'affichage pour s'assurer que le navigateur a peint la page
+        requestAnimationFrame(() => {
+          this.soundService.startAudioSequence();
+        });
+        return;
+      }
+
+      // Première visite : Animation complète
+      const letters = document.querySelectorAll('.letter');
       const tl = gsap.timeline();
 
-      // On affiche les lettres IMMEDIATEMENT (donne un retour visuel à l'utilisateur)
-      // et ça dure pendant le chargement des données.
       tl.to(letters, {
         opacity: 1,
         y: 0,
@@ -42,29 +50,18 @@ export class Preloader implements AfterViewInit {
         ease: 'power2.out'
       });
 
-      // On attend les données de l'API s'il ne sont pas déjà là
-      if (this.portfolioService.snapshot === null) {
-        try {
-          await firstValueFrom(this.portfolioService.load());
-        } catch (e) {
-          console.error("Erreur lors du chargement des données portfolio", e);
-        }
-      }
+      await dataPromise;
 
-      // Une fois chargé, on masque l'écran
       tl.to(this.preloaderElement.nativeElement, {
         opacity: 0,
         duration: 0.7,
-        delay: 0.5, // Délai réduit car on a déjà attendu l'API
+        delay: 0.3, // Pause de confort
         ease: 'power2.inOut',
         onComplete: () => {
           if (this.preloaderElement?.nativeElement) {
             this.preloaderElement.nativeElement.style.display = 'none';
           }
-          // Marquer comme vu pour éviter de rejouer à chaque navigation
           sessionStorage.setItem('preloader-done', 'true');
-          
-          // Lancer la méthode d'essai d'autoplay MAINTENANT
           this.soundService.startAudioSequence();
         }
       });
