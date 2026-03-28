@@ -22,8 +22,16 @@ DATABASES = {
     }
 }
 
-# CORS — restrict in production
-CORS_ALLOWED_ORIGINS = os.environ.get("CORS_ALLOWED_ORIGINS", "").split(",")
+# CORS — restrict in production, allow localhost for development
+_cors_env = os.environ.get("CORS_ALLOWED_ORIGINS", "")
+_cors_list = [o.strip() for o in _cors_env.split(",") if o.strip()]
+
+CORS_ALLOWED_ORIGINS = _cors_list + [
+    "http://localhost:4200",
+    "http://localhost:63192",
+    "http://localhost:3000",
+    "http://127.0.0.1:4200",
+]
 
 # Static files
 STATIC_ROOT = BASE_DIR / "staticfiles"

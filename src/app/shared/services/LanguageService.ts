@@ -11,11 +11,7 @@ export class LanguageService {
 
   lang$ = this._lang.asObservable();
 
-  constructor() {
-    if (typeof window !== 'undefined') {
-      this.syncGoogleTranslate(this._lang.value);
-    }
-  }
+  constructor() { }
 
   get current(): Lang {
     return this._lang.value;
@@ -25,26 +21,17 @@ export class LanguageService {
     const next: Lang = this._lang.value === 'fr' ? 'en' : 'fr';
     this._lang.next(next);
     localStorage.setItem('lang', next);
-    this.syncGoogleTranslate(next);
-  }
 
-  private syncGoogleTranslate(lang: Lang) {
-    if (typeof window === 'undefined' || typeof document === 'undefined') return;
-    
-    // On essaie de trouver le dropdown du widget Google toutes les 100ms
-    // car le script Google s'initialise de manière asynchrone
-    let retries = 0;
-    const interval = setInterval(() => {
-      const selectElement = document.querySelector('select.goog-te-combo') as HTMLSelectElement;
-      if (selectElement) {
-        selectElement.value = lang === 'en' ? 'en' : 'fr';
-        selectElement.dispatchEvent(new Event('change'));
-        clearInterval(interval);
-      } else if (retries > 50) { 
-        // 5 secondes max
-        clearInterval(interval);
-      }
-      retries++;
-    }, 100);
+    if (next === 'en') {
+      // Activer Google Translate secrètement via cookie
+      document.cookie = 'googtrans=/fr/en; path=/';
+      document.cookie = 'googtrans=/fr/en; domain=' + window.location.hostname + '; path=/';
+      window.location.reload();
+    } else {
+      // Désactiver complètement Google Translate et restaurer le DOM original
+      document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+      document.cookie = 'googtrans=; domain=' + window.location.hostname + '; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+      window.location.reload();
+    }
   }
 }
