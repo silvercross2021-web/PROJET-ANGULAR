@@ -246,6 +246,13 @@
     transition: padding-left 0.5s cubic-bezier(0.16, 1, 0.3, 1),
         border-color 0.4s ease;
 
+    @media (max-width: 500px) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.8rem;
+        padding-left: 0;
+    }
+
     /* Ligne verticale active au hover */
     &::before {
         content: '';
@@ -314,6 +321,16 @@
         gap: 1.5rem;
         flex-shrink: 0;
         margin-left: 1.5rem;
+
+        @media (max-width: 500px) {
+            margin-left: 0;
+            width: 100%;
+            justify-content: space-between;
+            
+            .row-category {
+                margin-left: 2.1rem; /* align to text, not number */
+            }
+        }
 
         .row-category {
             font-family: var(--font-body);
