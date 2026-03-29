@@ -208,6 +208,15 @@
     margin-bottom: 6rem;
     flex-wrap: wrap;
 
+    @media (max-width: 500px) {
+        flex-direction: column;
+        
+        .project-link-btn {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+
     .project-link-btn {
         display: inline-flex;
         align-items: center;
