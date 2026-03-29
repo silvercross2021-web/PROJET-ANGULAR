@@ -8,6 +8,9 @@ export interface IProject {
 	resume: string;
 	description?: string;
 	image?: string;
+	image_upload?: string;
+	video_presentation?: string;
+	fichier_joint?: string;
 	lien?: string;
 	github?: string;
 	live?: string;

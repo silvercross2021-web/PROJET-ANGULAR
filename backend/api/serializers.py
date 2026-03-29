@@ -90,7 +90,8 @@ class ProjetPublicSerializer(serializers.ModelSerializer):
         model = Projet
         fields = (
             'id', 'slug', 'titre', 'categorie', 'annee', 'resume', 'description',
-            'image', 'lien', 'github', 'live', 'couleur_primaire',
+            'image', 'image_upload', 'video_presentation', 'fichier_joint',
+            'lien', 'github', 'live', 'couleur_primaire',
             'couleur_secondaire', 'technologies', 'technologies_liste',
             'est_mis_en_avant', 'ordre_affichage'
         )

@@ -20,11 +20,13 @@
         : 'transparent'">
 
             <!-- Image projet si disponible -->
-            <img *ngIf="hoveredProject?.image" [src]="hoveredProject!.image" [alt]="hoveredProject!.titre"
-                class="preview-img" (error)="hoveredProject!.image = ''">
+            <img *ngIf="hoveredProject?.image_upload || hoveredProject?.image" 
+                [src]="hoveredProject!.image_upload || hoveredProject!.image" 
+                [alt]="hoveredProject!.titre"
+                class="preview-img" (error)="hoveredProject!.image = ''; hoveredProject!.image_upload = ''">
 
             <!-- Forme déco intérieure (fallback si pas d'image) -->
-            <div class="preview-deco" *ngIf="hoveredProject && !hoveredProject.image"
+            <div class="preview-deco" *ngIf="hoveredProject && !hoveredProject.image_upload && !hoveredProject.image"
                 [style.background]="'radial-gradient(circle at 70% 30%, ' + hoveredProject.couleur_secondaire + '88, transparent 60%)'">
             </div>
 

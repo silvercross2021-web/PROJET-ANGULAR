@@ -64,8 +64,10 @@ TIME_ZONE = "Africa/Abidjan"
 USE_I18N = True
 USE_TZ = True
 
-# Static files
+# Static and Media files
 STATIC_URL = "static/"
+MEDIA_URL = "media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 # Primary key
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

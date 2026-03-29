@@ -30,9 +30,21 @@
         <div class="project-visual">
             <div class="visual-card"
                 [style.background]="'linear-gradient(135deg, ' + project.couleur_primaire + ' 0%, ' + project.couleur_secondaire + ' 100%)'">
-                <img *ngIf="project.image" [src]="project.image" [alt]="project.titre" class="visual-img">
-                <div class="visual-logo" *ngIf="!project.image">{{ (project.titre || '').substring(0, 2).toUpperCase() }}</div>
+                
+                <img *ngIf="project.image_upload || project.image" 
+                     [src]="project.image_upload || project.image" 
+                     [alt]="project.titre" class="visual-img">
+                     
+                <div class="visual-logo" *ngIf="!project.image_upload && !project.image">
+                    {{ (project.titre || '').substring(0, 2).toUpperCase() }}
+                </div>
             </div>
+            
+            <video *ngIf="project.video_presentation" 
+                   [src]="project.video_presentation" 
+                   controls 
+                   class="visual-video" style="width: 100%; border-radius: 8px; margin-top: 2rem;">
+            </video>
         </div>
 
         <!-- Contenu -->
@@ -53,6 +65,12 @@
 
         <!-- Liens -->
         <div class="project-links">
+            <a *ngIf="project.fichier_joint" [href]="project.fichier_joint" target="_blank" class="project-link-btn primary" download>
+                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" style="margin-right: 8px;">
+                    <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+                </svg>
+                Télécharger le document
+            </a>
             <a *ngIf="project.live" [href]="project.live" target="_blank" class="project-link-btn primary">
                 Voir le site ↗
             </a>
