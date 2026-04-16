@@ -14,6 +14,8 @@ class ProjetSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def get_technologies_liste(self, obj):
+        if not obj.technologies:
+            return []
         return [tech.strip() for tech in obj.technologies.split(',') if tech.strip()]
 
 class ExperienceSerializer(serializers.ModelSerializer):
@@ -42,6 +44,8 @@ class ServiceSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def get_outils_liste(self, obj):
+        if not obj.outils:
+            return []
         return [outil.strip() for outil in obj.outils.split(',') if outil.strip()]
 
 
@@ -69,6 +73,8 @@ class ServicePublicSerializer(serializers.ModelSerializer):
         )
 
     def get_outils_liste(self, obj):
+        if not obj.outils:
+            return []
         return [outil.strip() for outil in obj.outils.split(',') if outil.strip()]
 
 
@@ -97,6 +103,8 @@ class ProjetPublicSerializer(serializers.ModelSerializer):
         )
 
     def get_technologies_liste(self, obj):
+        if not obj.technologies:
+            return []
         return [tech.strip() for tech in obj.technologies.split(',') if tech.strip()]
 
 
