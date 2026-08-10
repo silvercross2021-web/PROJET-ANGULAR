@@ -188,8 +188,9 @@
             color 0.3s ease, letter-spacing 0.3s ease;
 
         @media (max-width: 900px) {
-            font-size: clamp(2rem, 8vw, 3.2rem);
+            font-size: clamp(1.85rem, 6.6vw, 3.2rem);
             line-height: 1;
+            letter-spacing: -0.03em;
         }
     }
 
@@ -203,13 +204,6 @@
     &:nth-child(3) .link-num, &:nth-child(3) .link-text { transition-delay: 0.12s; }
     &:nth-child(4) .link-num, &:nth-child(4) .link-text { transition-delay: 0.16s; }
     &:nth-child(5) .link-num, &:nth-child(5) .link-text { transition-delay: 0.20s; }
-}
-
-@media (max-width: 900px) {
-    .menu-link:nth-child(3) .link-text {
-        font-size: clamp(1.65rem, 6.6vw, 2.7rem);
-        letter-spacing: -0.04em;
-    }
 }
 
 .is-open .menu-link .link-num,
