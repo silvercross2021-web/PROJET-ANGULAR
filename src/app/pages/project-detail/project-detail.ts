@@ -26,16 +26,24 @@ export class ProjectDetail implements OnInit {
     const slug = this.route.snapshot.paramMap.get('id');
     if (!slug) { this.loading = false; return; }
 
-    // 1) Chercher dans le cache (instantané, 0 appel HTTP)
+    // 1) Affichage rapide à partir du cache portfolio si disponible
     const cached = this.portfolioService.snapshot;
-    if (cached) {
-      this.project = cached.projets.find(p => p.slug === slug) || null;
-      if (this.project) { this.loading = false; return; }
+    if (cached && cached.projets) {
+      const found = cached.projets.find(p => p.slug === slug || String(p.id) === String(slug));
+      if (found) {
+        this.project = found;
+        this.loading = false;
+      }
     }
 
-    // 2) Fallback : appel API si pas en cache
+    // 2) Toujours charger la version intégrale des détails du projet depuis l'API /api/projects
     this.projectService.getBySlug(slug).subscribe({
-      next: (project) => { this.project = project; this.loading = false; },
+      next: (project) => {
+        if (project) {
+          this.project = project;
+        }
+        this.loading = false;
+      },
       error: () => { this.loading = false; }
     });
   }

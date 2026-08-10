@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { Observable, BehaviorSubject, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { ICertification } from '../models/ICertification';
 
 @Injectable({
@@ -83,35 +83,26 @@ export class CertificationService {
     }
   ];
 
-  private cache: ICertification[] | null = null;
+  private certsSubject = new BehaviorSubject<ICertification[]>(this.defaultCertifications);
 
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<ICertification[]> {
-    if (this.cache) {
-      return of(this.cache);
-    }
-    return of(this.defaultCertifications).pipe(
-      tap(() => {
-        this.http.get<ICertification[]>(this.apiUrl).subscribe({
-          next: (data) => {
-            if (data && data.length) this.cache = data;
-          },
-          error: () => {}
-        });
-      })
-    );
+    this.http.get<ICertification[]>(this.apiUrl).pipe(
+      catchError(() => of(null))
+    ).subscribe(data => {
+      if (data && data.length) {
+        this.certsSubject.next(data);
+      }
+    });
+
+    return this.certsSubject.asObservable();
   }
 
   getById(id: string): Observable<ICertification | null> {
-    // Chercher dans le cache d'abord
-    if (this.cache) {
-      const found = this.cache.find(c => c.id === id) || null;
-      return of(found);
-    }
-    // Sinon chercher dans les defaults
-    const fromDefault = this.defaultCertifications.find(c => c.id === id) || null;
-    return of(fromDefault);
+    return this.getAll().pipe(
+      map(list => list.find(c => c.id === id || String(c.id) === String(id)) || null)
+    );
   }
 
   add(cert: ICertification): Observable<ICertification> {
