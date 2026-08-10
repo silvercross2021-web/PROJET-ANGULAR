@@ -1,0 +1,220 @@
+<div class="page admin-page">
+  <div class="grain"></div>
+  <div class="blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+  </div>
+
+  <div class="page-content">
+    <!-- Header Admin -->
+    <div class="admin-header-section">
+      <div class="header-top">
+        <span class="section-tag">GESTION DU CONTENU</span>
+        <span class="admin-badge">CMS ADMIN</span>
+      </div>
+      <h1 class="admin-page-title">Tableau de Bord</h1>
+    </div>
+
+    <!-- Navigation par Onglets Épurés -->
+    <div class="admin-nav-tabs">
+      <button [class.is-active]="activeTab === 'projects'" (click)="activeTab = 'projects'">
+        <span class="tab-label">PROJETS</span>
+        <span class="tab-badge">{{ projects.length }}</span>
+      </button>
+      <button [class.is-active]="activeTab === 'certifications'" (click)="activeTab = 'certifications'">
+        <span class="tab-label">CERTIFICATIONS</span>
+        <span class="tab-badge">{{ certifications.length }}</span>
+      </button>
+      <button [class.is-active]="activeTab === 'messages'" (click)="activeTab = 'messages'">
+        <span class="tab-label">MESSAGES</span>
+        <span class="tab-badge">{{ messages.length }}</span>
+      </button>
+    </div>
+
+    <!-- TAB 1: PROJETS -->
+    <div class="tab-pane" *ngIf="activeTab === 'projects'">
+      <div class="admin-grid">
+        <!-- Form Card -->
+        <div class="admin-glass-card">
+          <h2 class="card-title">{{ editingProjectId ? 'Modifier le Projet' : 'Nouveau Projet' }}</h2>
+          <form [formGroup]="projectForm" (ngSubmit)="submitProject()" class="admin-form">
+            <div class="form-row">
+              <div class="form-field">
+                <label>Titre du projet *</label>
+                <input type="text" formControlName="titre" placeholder="ex: Application MonEtab">
+              </div>
+              <div class="form-field">
+                <label>Slug URL *</label>
+                <input type="text" formControlName="slug" placeholder="ex: application-monetab">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-field">
+                <label>Catégorie</label>
+                <select formControlName="categorie">
+                  <option value="Angular">Angular</option>
+                  <option value="Fullstack">Fullstack</option>
+                  <option value="Mobile">Mobile</option>
+                  <option value="Backend">Backend</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label>Année</label>
+                <input type="text" formControlName="annee" placeholder="2024">
+              </div>
+            </div>
+
+            <div class="form-field">
+              <label>Résumé court *</label>
+              <input type="text" formControlName="resume" placeholder="Aperçu concis du projet">
+            </div>
+
+            <div class="form-field">
+              <label>Description complète</label>
+              <textarea formControlName="description" rows="3" placeholder="Détails, objectifs et réalisations..."></textarea>
+            </div>
+
+            <div class="form-row">
+              <div class="form-field">
+                <label>URL Image</label>
+                <input type="text" formControlName="image" placeholder="https://...">
+              </div>
+              <div class="form-field">
+                <label>URL Vidéo Démo</label>
+                <input type="text" formControlName="video_url" placeholder="https://...">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-field">
+                <label>Lien Démo (Live)</label>
+                <input type="text" formControlName="live" placeholder="https://...">
+              </div>
+              <div class="form-field">
+                <label>Lien GitHub</label>
+                <input type="text" formControlName="github" placeholder="https://github.com/...">
+              </div>
+            </div>
+
+            <div class="form-field checkbox-field">
+              <label class="custom-checkbox">
+                <input type="checkbox" formControlName="est_prive">
+                <span class="checkmark"></span>
+                🔒 Marquer comme Dépôt Privé (Code confidentiel)
+              </label>
+            </div>
+
+            <div class="form-field">
+              <label>Technologies (séparées par virgules)</label>
+              <input type="text" formControlName="technologies" placeholder="Angular, TypeScript, Supabase">
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-action primary">{{ editingProjectId ? 'Mettre à jour' : 'Créer le projet' }}</button>
+              <button type="button" class="btn-action secondary" *ngIf="editingProjectId" (click)="resetProjectForm()">Annuler</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- List Card -->
+        <div class="admin-glass-card">
+          <h2 class="card-title">Projets de votre Portfolio</h2>
+          <div class="admin-items-list">
+            <div class="list-item-card" *ngFor="let p of projects">
+              <div class="item-details">
+                <h3 class="item-name">{{ p.titre }}</h3>
+                <div class="item-tags">
+                  <span class="tag-pill">{{ p.categorie }}</span>
+                  <span class="tag-pill privacy" [class.is-private]="p.est_prive">{{ p.est_prive ? '🔒 Privé' : '🌐 Public' }}</span>
+                </div>
+              </div>
+              <div class="item-controls">
+                <button (click)="editProject(p)" class="btn-icon" title="Éditer">✏️</button>
+                <button (click)="deleteProject(p.id)" class="btn-icon danger" title="Supprimer">🗑️</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: CERTIFICATIONS -->
+    <div class="tab-pane" *ngIf="activeTab === 'certifications'">
+      <div class="admin-grid">
+        <div class="admin-glass-card">
+          <h2 class="card-title">Ajouter une Accreditation</h2>
+          <form [formGroup]="certForm" (ngSubmit)="submitCert()" class="admin-form">
+            <div class="form-field">
+              <label>Titre de la Certification *</label>
+              <input type="text" formControlName="titre" placeholder="ex: Développeur Angular Certifié">
+            </div>
+            <div class="form-row">
+              <div class="form-field">
+                <label>Organisme *</label>
+                <input type="text" formControlName="organisme" placeholder="OpenClassrooms / IIT">
+              </div>
+              <div class="form-field">
+                <label>Année *</label>
+                <input type="text" formControlName="date_obtention" placeholder="2024">
+              </div>
+            </div>
+            <div class="form-field">
+              <label>URL Image / Badge</label>
+              <input type="text" formControlName="image_badge" placeholder="https://...">
+            </div>
+            <div class="form-field">
+              <label>Lien de vérification</label>
+              <input type="text" formControlName="lien_verification" placeholder="https://...">
+            </div>
+            <div class="form-field">
+              <label>Description</label>
+              <textarea formControlName="description" rows="2"></textarea>
+            </div>
+            <div class="form-field">
+              <label>Compétences (séparées par virgules)</label>
+              <input type="text" formControlName="competences" placeholder="Angular, RxJS, TypeScript">
+            </div>
+            <button type="submit" class="btn-action primary">Ajouter la Certification</button>
+          </form>
+        </div>
+
+        <div class="admin-glass-card">
+          <h2 class="card-title">Certifications enregistrées</h2>
+          <div class="admin-items-list">
+            <div class="list-item-card" *ngFor="let c of certifications">
+              <div class="item-details">
+                <h3 class="item-name">{{ c.titre }}</h3>
+                <p class="item-sub">{{ c.organisme }} ({{ c.date_obtention }})</p>
+              </div>
+              <button (click)="deleteCert(c.id)" class="btn-icon danger" title="Supprimer">🗑️</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: MESSAGES -->
+    <div class="tab-pane" *ngIf="activeTab === 'messages'">
+      <div class="admin-glass-card">
+        <h2 class="card-title">Messages des Visiteurs</h2>
+        <div class="messages-stack" *ngIf="messages.length; else noMsg">
+          <div class="msg-card-item" *ngFor="let m of messages">
+            <div class="msg-top">
+              <span class="msg-sender">{{ m.nom }} &lt;{{ m.email }}&gt;</span>
+              <span class="msg-date">{{ m.created_at | date:'dd/MM/yyyy HH:mm' }}</span>
+            </div>
+            <h4 class="msg-sub" *ngIf="m.sujet">{{ m.sujet }}</h4>
+            <p class="msg-text">{{ m.message }}</p>
+            <div class="msg-actions">
+              <button (click)="deleteMessage(m.id)" class="btn-action secondary danger">Supprimer ce message</button>
+            </div>
+          </div>
+        </div>
+        <ng-template #noMsg>
+          <div class="empty-state">Aucun message de visiteur reçu pour le moment.</div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

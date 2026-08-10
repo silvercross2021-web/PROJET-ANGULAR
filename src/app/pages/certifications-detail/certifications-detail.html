@@ -1,0 +1,137 @@
+<div class="page cert-detail-page" *ngIf="cert; else notFound">
+    <div class="grain"></div>
+    <div class="blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <div class="page-content">
+
+        <!-- Retour -->
+        <a routerLink="/certifications" class="back-link">← Retour aux certifications</a>
+
+        <!-- ===== HERO ===== -->
+        <div class="cert-hero">
+            <div class="cert-meta-top">
+                <span class="cert-organisme-badge">{{ cert.organisme }}</span>
+                <span class="cert-date">{{ cert.date_obtention }}</span>
+            </div>
+
+            <h1 class="cert-big-title">{{ cert.titre }}</h1>
+
+            <!-- Vérification -->
+            <div class="cert-verification">
+                <a *ngIf="isUrl(cert.lien_verification)"
+                   [href]="cert.lien_verification"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="verify-btn primary">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                        <path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+                    </svg>
+                    Vérifier l'accréditation ↗
+                </a>
+                <span *ngIf="!isUrl(cert.lien_verification) && cert.lien_verification" class="cert-code-badge">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+                    {{ cert.lien_verification }}
+                </span>
+            </div>
+
+            <div class="radio-dot"><span class="radio-inner"></span></div>
+        </div>
+
+        <!-- ===== VISUEL HERO ===== -->
+        <div class="cert-visual">
+            <div class="cert-visual-card"
+                 style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4c1d95 100%)">
+                <img *ngIf="cert.image_badge" [src]="cert.image_badge" [alt]="cert.titre" class="cert-visual-img">
+                <div class="cert-visual-monogram" *ngIf="!cert.image_badge">
+                    {{ cert.titre.substring(0, 2).toUpperCase() }}
+                </div>
+                <div class="cert-visual-overlay">
+                    <span class="cert-visual-label">{{ cert.organisme }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== SECTION : L'ORGANISME ===== -->
+        <div class="cert-section cert-section--organisme" *ngIf="cert.histoire_organisme || cert.reconnaissance_mondiale">
+            <div class="section-label">
+                <span class="section-number">01</span>
+                <span class="section-title">L'Organisme Certificateur</span>
+            </div>
+
+            <div class="section-grid">
+                <div class="section-block" *ngIf="cert.histoire_organisme">
+                    <h2>Histoire & Identité</h2>
+                    <p>{{ cert.histoire_organisme }}</p>
+                </div>
+                <div class="section-block" *ngIf="cert.reconnaissance_mondiale">
+                    <h2>Reconnaissance Mondiale</h2>
+                    <p>{{ cert.reconnaissance_mondiale }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== SECTION : CE QUE CA M'A APPORTE ===== -->
+        <div class="cert-section cert-section--apports" *ngIf="cert.description || cert.apports_personnels">
+            <div class="section-label">
+                <span class="section-number">02</span>
+                <span class="section-title">Ce que cette certification m'a apporté</span>
+            </div>
+
+            <div class="section-grid">
+                <div class="section-block" *ngIf="cert.description">
+                    <h2>Description Officielle</h2>
+                    <p>{{ cert.description }}</p>
+                </div>
+                <div class="section-block" *ngIf="cert.apports_personnels">
+                    <h2>Mon Expérience Personnelle</h2>
+                    <p>{{ cert.apports_personnels }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== SECTION : DOMAINES COUVERTS ===== -->
+        <div class="cert-section cert-section--domains" *ngIf="cert.domaines_couverts && cert.domaines_couverts.length">
+            <div class="section-label">
+                <span class="section-number">03</span>
+                <span class="section-title">Domaines couverts</span>
+            </div>
+            <div class="domains-list">
+                <div class="domain-item" *ngFor="let d of cert.domaines_couverts; let i = index">
+                    <span class="domain-num">{{ ('0' + (i + 1)).slice(-2) }}</span>
+                    <span class="domain-name">{{ d }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== SECTION : COMPÉTENCES ===== -->
+        <div class="cert-section cert-section--skills" *ngIf="cert.competences_cles && cert.competences_cles.length">
+            <div class="section-label">
+                <span class="section-number">04</span>
+                <span class="section-title">Compétences acquises</span>
+            </div>
+            <div class="skills-pills">
+                <span class="skill-pill" *ngFor="let skill of cert.competences_cles">{{ skill }}</span>
+            </div>
+        </div>
+
+        <!-- ===== FOOTER NAVIGATION ===== -->
+        <div class="cert-nav-bottom">
+            <a routerLink="/certifications" class="next-cert-link">
+                Voir toutes les certifications →
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<ng-template #notFound>
+    <div class="page not-found-page">
+        <div class="page-content">
+            <h1>Certification introuvable</h1>
+            <a routerLink="/certifications" class="back-link">← Retour aux certifications</a>
+        </div>
+    </div>
+</ng-template>

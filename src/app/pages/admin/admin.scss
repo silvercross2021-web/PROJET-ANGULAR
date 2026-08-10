@@ -1,0 +1,363 @@
+.admin-page {
+  position: relative;
+  min-height: 100vh;
+
+  .page-content {
+    padding-top: 8rem;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    padding-bottom: 6rem;
+    max-width: 1400px;
+    margin: 0 auto;
+
+    @media (max-width: 900px) {
+      padding-left: 2rem;
+      padding-right: 2rem;
+      padding-top: 6rem;
+    }
+  }
+}
+
+.admin-header-section {
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-primary, #ffffff) 15%, transparent);
+
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.8rem;
+
+    .section-tag {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      opacity: 0.5;
+    }
+
+    .admin-badge {
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: color-mix(in srgb, var(--color-primary, #ffffff) 10%, transparent);
+      border: 1px solid color-mix(in srgb, var(--color-primary, #ffffff) 15%, transparent);
+    }
+  }
+
+  .admin-page-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 4vw, 4rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+}
+
+.admin-nav-tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 3rem;
+
+  button {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    padding: 12px 24px;
+    border-radius: 40px;
+    border: 1px solid color-mix(in srgb, var(--color-primary, #ffffff) 12%, transparent);
+    background: color-mix(in srgb, var(--color-primary, #ffffff) 4%, transparent);
+    color: inherit;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+    .tab-badge {
+      font-size: 0.75rem;
+      opacity: 0.6;
+      padding: 2px 8px;
+      border-radius: 12px;
+      background: color-mix(in srgb, var(--color-primary, #ffffff) 10%, transparent);
+    }
+
+    &.is-active, &:hover {
+      background: color-mix(in srgb, var(--color-primary, #ffffff) 16%, transparent);
+      border-color: color-mix(in srgb, var(--color-primary, #ffffff) 30%, transparent);
+      transform: translateY(-2px);
+    }
+  }
+}
+
+.admin-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+
+  @media (max-width: 950px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.admin-glass-card {
+  background: color-mix(in srgb, var(--color-primary, #ffffff) 3%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-primary, #ffffff) 10%, transparent);
+  border-radius: 20px;
+  padding: 2.2rem;
+  backdrop-filter: blur(10px);
+
+  .card-title {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-primary, #ffffff) 8%, transparent);
+  }
+}
+
+.admin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+
+    @media (max-width: 550px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    label {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      opacity: 0.7;
+    }
+
+    input[type="text"], select, textarea {
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: 1px solid color-mix(in srgb, var(--color-primary, #ffffff) 12%, transparent);
+      background: color-mix(in srgb, var(--color-primary, #ffffff) 4%, transparent);
+      color: inherit;
+      transition: all 0.3s ease;
+
+      &:focus {
+        outline: none;
+        border-color: color-mix(in srgb, var(--color-primary, #ffffff) 35%, transparent);
+        background: color-mix(in srgb, var(--color-primary, #ffffff) 8%, transparent);
+      }
+    }
+  }
+
+  .checkbox-field {
+    .custom-checkbox {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.88rem;
+      cursor: pointer;
+      opacity: 0.85;
+
+      input {
+        width: 18px;
+        height: 18px;
+        accent-color: #6366f1;
+      }
+    }
+  }
+
+  .form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+}
+
+.btn-action {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &.primary {
+    background: color-mix(in srgb, var(--color-primary, #ffffff) 18%, transparent);
+    color: inherit;
+    border: 1px solid color-mix(in srgb, var(--color-primary, #ffffff) 25%, transparent);
+
+    &:hover {
+      background: color-mix(in srgb, var(--color-primary, #ffffff) 28%, transparent);
+      transform: translateY(-2px);
+    }
+  }
+
+  &.secondary {
+    background: transparent;
+    color: inherit;
+    border: 1px solid color-mix(in srgb, var(--color-primary, #ffffff) 12%, transparent);
+
+    &:hover {
+      background: color-mix(in srgb, var(--color-primary, #ffffff) 8%, transparent);
+    }
+
+    &.danger {
+      color: #ef4444;
+      border-color: rgba(239, 68, 68, 0.3);
+
+      &:hover {
+        background: rgba(239, 68, 68, 0.15);
+      }
+    }
+  }
+}
+
+.admin-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  .list-item-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 1.4rem;
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--color-primary, #ffffff) 2%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-primary, #ffffff) 8%, transparent);
+    transition: all 0.3s ease;
+
+    &:hover {
+      border-color: color-mix(in srgb, var(--color-primary, #ffffff) 18%, transparent);
+      transform: translateY(-2px);
+    }
+
+    .item-details {
+      .item-name {
+        font-family: var(--font-display);
+        font-size: 1.05rem;
+        font-weight: 700;
+        margin-bottom: 0.3rem;
+      }
+
+      .item-sub {
+        font-size: 0.82rem;
+        opacity: 0.6;
+      }
+
+      .item-tags {
+        display: flex;
+        gap: 8px;
+
+        .tag-pill {
+          font-size: 0.72rem;
+          padding: 3px 8px;
+          border-radius: 6px;
+          background: color-mix(in srgb, var(--color-primary, #ffffff) 8%, transparent);
+          opacity: 0.8;
+
+          &.privacy.is-private {
+            background: rgba(239, 68, 68, 0.15);
+            color: #fca5a5;
+          }
+        }
+      }
+    }
+
+    .item-controls {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-icon {
+      background: color-mix(in srgb, var(--color-primary, #ffffff) 8%, transparent);
+      border: 1px solid color-mix(in srgb, var(--color-primary, #ffffff) 12%, transparent);
+      border-radius: 8px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: color-mix(in srgb, var(--color-primary, #ffffff) 18%, transparent);
+      }
+
+      &.danger:hover {
+        background: rgba(239, 68, 68, 0.2);
+      }
+    }
+  }
+}
+
+.messages-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+
+  .msg-card-item {
+    padding: 1.6rem;
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--color-primary, #ffffff) 3%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-primary, #ffffff) 8%, transparent);
+
+    .msg-top {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.8rem;
+      font-size: 0.88rem;
+
+      .msg-sender {
+        font-weight: 700;
+      }
+
+      .msg-date {
+        opacity: 0.45;
+      }
+    }
+
+    .msg-sub {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+      opacity: 0.9;
+    }
+
+    .msg-text {
+      font-size: 0.92rem;
+      opacity: 0.75;
+      line-height: 1.5;
+    }
+
+    .msg-actions {
+      margin-top: 1rem;
+    }
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  font-family: var(--font-body);
+  opacity: 0.5;
+}

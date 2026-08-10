@@ -1,0 +1,68 @@
+<div class="page work-page certifications-page">
+    <div class="grain"></div>
+    <div class="blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-5"></div>
+    </div>
+
+    <!-- === ZONE PREVIEW GAUCHE (Identique à la page Projets) === -->
+    <div class="work-preview-zone" [class.has-project]="hoveredCert !== null">
+
+        <!-- Numéro flottant -->
+        <span class="preview-num" *ngIf="hoveredCert">
+            {{ ('0' + (getIndex(hoveredCert) + 1)).slice(-2) }}
+        </span>
+
+        <!-- Carte principale preview -->
+        <div class="work-preview-card" [class.is-visible]="hoveredCert !== null"
+             style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4c1d95 100%)">
+
+            <img *ngIf="hoveredCert?.image_badge"
+                [src]="hoveredCert!.image_badge"
+                [alt]="hoveredCert!.titre"
+                class="preview-img">
+
+            <div class="preview-info" *ngIf="hoveredCert">
+                <span class="preview-category">{{ hoveredCert.organisme }}</span>
+                <span class="preview-title">{{ hoveredCert.titre }}</span>
+                <span class="preview-year">{{ hoveredCert.date_obtention }}</span>
+            </div>
+        </div>
+
+        <!-- Radio dot pulsant -->
+        <div class="preview-radio" [class.is-visible]="hoveredCert !== null"
+            style="border-color: #6366f1">
+            <span style="background: #6366f1"></span>
+        </div>
+    </div>
+
+    <!-- === CONTENU DROIT === -->
+    <div class="page-content">
+        <div class="work-header">
+            <h1 class="work-title">CERTIFICATIONS</h1>
+            <span class="work-count">{{ certifications.length }}</span>
+        </div>
+
+        <div class="projects-list">
+            <div *ngFor="let cert of certifications; let i = index"
+                class="project-row cert-row-item"
+                (mouseenter)="hoveredCert = cert"
+                (mouseleave)="hoveredCert = null"
+                (click)="openDetail(cert)"
+                role="link"
+                [attr.aria-label]="'Voir les détails de ' + cert.titre">
+
+                <div class="row-left">
+                    <span class="row-num">{{ ('0' + (i + 1)).slice(-2) }}</span>
+                    <span class="row-name">{{ cert.titre }}</span>
+                </div>
+
+                <div class="row-right">
+                    <span class="row-category">{{ cert.organisme }}</span>
+                    <span class="cert-see-detail">Voir →</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
