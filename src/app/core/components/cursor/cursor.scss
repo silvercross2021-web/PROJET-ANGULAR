@@ -51,3 +51,11 @@ body.cursor-hover .custom-cursor-follower {
 html.dark-mode .custom-cursor-follower {
     border-color: rgba(200, 200, 255, 0.35);
 }
+
+/* Désactiver le curseur custom sur mobile et écrans tactiles */
+@media (max-width: 900px), (pointer: coarse) {
+    .custom-cursor,
+    .custom-cursor-follower {
+        display: none !important;
+    }
+}

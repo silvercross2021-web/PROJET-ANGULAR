@@ -92,7 +92,20 @@ export class CertificationService {
       catchError(() => of(null))
     ).subscribe(data => {
       if (data && data.length) {
-        this.certsSubject.next(data);
+        const merged = data.map(item => {
+          const def = this.defaultCertifications.find(d => d.id === item.id || d.titre === item.titre);
+          if (!def) return item;
+          return {
+            ...def,
+            ...item,
+            histoire_organisme: item.histoire_organisme || def.histoire_organisme,
+            reconnaissance_mondiale: item.reconnaissance_mondiale || def.reconnaissance_mondiale,
+            apports_personnels: item.apports_personnels || def.apports_personnels,
+            domaines_couverts: (item.domaines_couverts && item.domaines_couverts.length) ? item.domaines_couverts : def.domaines_couverts,
+            competences_cles: (item.competences_cles && item.competences_cles.length) ? item.competences_cles : def.competences_cles
+          };
+        });
+        this.certsSubject.next(merged);
       }
     });
 
