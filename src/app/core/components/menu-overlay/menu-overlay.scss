@@ -17,8 +17,11 @@
     pointer-events: none;
 
     @media (max-width: 900px) {
-        grid-template-columns: 1fr;
-        padding: 5.5rem 1.8rem 2rem 1.8rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 5.2rem 1.8rem 1.8rem 1.8rem;
+        height: 100dvh;
     }
 
     &.is-open {
@@ -27,7 +30,7 @@
     }
 }
 
-/* ====== BLOBS ORGANIQUES CÔTÉ GAUCHE ====== */
+/* ====== BLOBS ORGANIQUES ====== */
 .menu-blobs {
     position: absolute;
     left: 0;
@@ -39,7 +42,8 @@
 
     @media (max-width: 900px) {
         width: 100%;
-        opacity: 0.18;
+        height: 100%;
+        opacity: 0.3;
     }
 }
 
@@ -128,12 +132,11 @@
     z-index: 2;
 
     @media (max-width: 900px) {
-        grid-column: 1;
-        grid-row: 1;
+        flex: 1;
+        justify-content: space-evenly;
         align-items: flex-start;
-        justify-content: center;
         margin-top: 0;
-        gap: 0.6rem;
+        margin-bottom: 1rem;
     }
 }
 
@@ -147,7 +150,8 @@
 
     @media (max-width: 900px) {
         gap: 0.8rem;
-        padding: 0.25rem 0;
+        padding: 0.2rem 0;
+        width: 100%;
     }
 
     .link-num {
@@ -181,8 +185,8 @@
             color 0.3s ease, letter-spacing 0.3s ease;
 
         @media (max-width: 900px) {
-            font-size: clamp(1.8rem, 7.5vw, 3.2rem);
-            line-height: 1.15;
+            font-size: clamp(1.6rem, 7vw, 2.8rem);
+            line-height: 1.1;
         }
     }
 
@@ -223,6 +227,7 @@
         gap: 1.5rem;
         padding-top: 1.2rem;
         justify-content: flex-start;
+        margin-top: auto;
     }
 
     .menu-social {
