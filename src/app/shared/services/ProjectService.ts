@@ -15,7 +15,13 @@ export class ProjectService {
     return this.http.get<IProject[]>(`${this.apiUrl}`).pipe(
       map(results => {
         if (!results || !results.length) return null;
-        return results.find(p => p.slug === slug || p.id === slug) || null;
+        const normalizedSlug = String(slug).toLowerCase().trim();
+        return results.find(p => 
+          String(p.slug || '').toLowerCase() === normalizedSlug ||
+          String(p.id || '').toLowerCase() === normalizedSlug ||
+          String(p.titre || '').toLowerCase() === normalizedSlug ||
+          String((p as any).title || '').toLowerCase() === normalizedSlug
+        ) || null;
       })
     );
   }

@@ -248,6 +248,54 @@ const defaultProjects = [
   }
 ];
 
+function normalizeProject(p) {
+  if (!p) return null;
+  const titre = p.titre || p.title || 'Projet';
+  const rawSlug = p.slug || p.id || (titre ? titre.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : 'projet');
+  const slug = String(rawSlug);
+  const categorie = p.categorie || p.category || 'Développement';
+  const image = p.image || p.image_upload || p.imageUrl || 'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80';
+  const live = p.live || p.lien || p.demoUrl || '';
+  const github = p.github || p.githubUrl || '';
+  const description = p.description || p.resume || '';
+  const resume = p.resume || p.description || '';
+  const architecture_details = p.architecture_details || 'Architecture basée sur les meilleures pratiques modernes de développement web et cloud.';
+
+  let techList = [];
+  if (Array.isArray(p.technologies_liste) && p.technologies_liste.length) {
+    techList = p.technologies_liste;
+  } else if (Array.isArray(p.technologies) && p.technologies.length) {
+    techList = p.technologies;
+  } else if (typeof p.technologies === 'string' && p.technologies.trim()) {
+    techList = p.technologies.split(',').map(s => s.trim());
+  }
+
+  return {
+    ...p,
+    id: p.id || slug,
+    titre,
+    title: titre,
+    slug,
+    categorie,
+    category: categorie,
+    image,
+    imageUrl: image,
+    live,
+    demoUrl: live,
+    github,
+    githubUrl: github,
+    description,
+    resume,
+    architecture_details,
+    technologies_liste: techList,
+    technologies: Array.isArray(p.technologies) ? p.technologies.join(', ') : (p.technologies || techList.join(', ')),
+    couleur_primaire: p.couleur_primaire || '#6366f1',
+    couleur_secondaire: p.couleur_secondaire || '#a855f7',
+    annee: p.annee || '2025',
+    est_mis_en_avant: p.est_mis_en_avant !== undefined ? p.est_mis_en_avant : (p.featured !== undefined ? p.featured : true)
+  };
+}
+
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
@@ -256,16 +304,19 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
 
   try {
-    let projects = [];
+    let rawProjects = [];
     try {
       const { data } = await supabase.from('projects').select('*').order('created_at', { ascending: false });
-      if (data && data.length) projects = data;
+      if (data && data.length) rawProjects = data;
     } catch (e) {
       console.error('Error fetching projects from Supabase:', e);
     }
 
-    if (!projects || !projects.length) {
-      projects = defaultProjects;
+    let projects = [];
+    if (rawProjects && rawProjects.length) {
+      projects = rawProjects.map(p => normalizeProject(p));
+    } else {
+      projects = defaultProjects.map(p => normalizeProject(p));
     }
 
     // Return structured portfolio directly from Supabase / defaults
