@@ -388,3 +388,120 @@
         padding: 0.4rem 1rem;
     }
 }
+
+/* === LIGHTBOX MODAL === */
+.cert-lightbox-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    background: rgba(10, 10, 20, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    animation: fadeIn 0.25s ease-out forwards;
+
+    .cert-modal-dialog {
+        position: relative;
+        max-width: 90vw;
+        max-height: 90vh;
+        background: #121324;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 16px;
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+
+        .cert-modal-close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 1.4rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: background 0.2s, transform 0.2s;
+
+            &:hover {
+                background: rgba(239, 68, 68, 0.8);
+                color: #ffffff;
+                transform: scale(1.1);
+            }
+        }
+
+        .cert-modal-body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: auto;
+            max-height: 75vh;
+            padding: 1rem;
+
+            .cert-modal-full-img {
+                max-width: 100%;
+                max-height: 70vh;
+                object-fit: contain;
+                border-radius: 8px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            }
+        }
+
+        .cert-modal-footer {
+            padding: 1.2rem 2rem;
+            background: rgba(20, 22, 40, 0.95);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            align-items: center;
+            text-align: center;
+
+            .cert-modal-title {
+                font-family: var(--font-display);
+                font-size: 1.1rem;
+                font-weight: 700;
+                color: #ffffff;
+            }
+
+            .cert-modal-sub {
+                font-family: var(--font-body);
+                font-size: 0.85rem;
+                color: rgba(255, 255, 255, 0.7);
+            }
+
+            .cert-download-btn {
+                margin-top: 0.5rem;
+                font-family: var(--font-body);
+                font-size: 0.85rem;
+                font-weight: 600;
+                color: #818cf8;
+                text-decoration: underline;
+
+                &:hover {
+                    color: #a5b4fc;
+                }
+            }
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}

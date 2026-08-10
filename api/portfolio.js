@@ -12,7 +12,7 @@ const defaultProfil = {
   prenoms: 'Brandonne Davy',
   statut: 'Disponible pour opportunités',
   biographie: 'Développeur Full-Stack & passionné d\'IA avec une expertise en Angular, Cloud et architectures modernes.',
-  photo_profil: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80',
+  photo_profil: 'https://ggnyiuyufltnulkmzchu.supabase.co/storage/v1/object/public/certifications/profile.jpg',
   cv: null
 };
 

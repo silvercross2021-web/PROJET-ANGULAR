@@ -41,15 +41,16 @@
         </div>
 
         <!-- ===== VISUEL HERO ===== -->
-        <div class="cert-visual">
+        <div class="cert-visual" (click)="openCertModal()">
             <div class="cert-visual-card"
-                 style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4c1d95 100%)">
+                 style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4c1d95 100%); cursor: pointer;"
+                 title="Cliquer pour afficher le certificat officiel en plein écran">
                 <img *ngIf="cert.image_badge" [src]="cert.image_badge" [alt]="cert.titre" class="cert-visual-img">
                 <div class="cert-visual-monogram" *ngIf="!cert.image_badge">
                     {{ cert.titre.substring(0, 2).toUpperCase() }}
                 </div>
                 <div class="cert-visual-overlay">
-                    <span class="cert-visual-label">{{ cert.organisme }}</span>
+                    <span class="cert-visual-label">🔍 Cliquer pour agrandir le certificat</span>
                 </div>
             </div>
         </div>
@@ -124,6 +125,23 @@
             </a>
         </div>
 
+    </div>
+</div>
+
+<!-- ===== MODAL LIGHTBOX POUR AGRANDIR LE CERTIFICAT ===== -->
+<div class="cert-lightbox-modal" *ngIf="isModalOpen" (click)="closeCertModal()">
+    <div class="cert-modal-dialog" (click)="$event.stopPropagation()">
+        <button class="cert-modal-close-btn" (click)="closeCertModal()" aria-label="Fermer">✕</button>
+        <div class="cert-modal-body">
+            <img *ngIf="cert" [src]="cert.image_badge" [alt]="cert.titre" class="cert-modal-full-img">
+        </div>
+        <div class="cert-modal-footer" *ngIf="cert">
+            <h3 class="cert-modal-title">{{ cert.titre }}</h3>
+            <span class="cert-modal-sub">{{ cert.organisme }} — {{ cert.date_obtention }}</span>
+            <a *ngIf="cert.fichier_pdf" [href]="cert.fichier_pdf" target="_blank" class="cert-download-btn">
+                📄 Télécharger le document PDF original ↗
+            </a>
+        </div>
     </div>
 </div>
 

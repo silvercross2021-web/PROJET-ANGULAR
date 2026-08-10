@@ -12,4 +12,5 @@ export interface ICertification {
   reconnaissance_mondiale?: string;
   apports_personnels?: string;
   domaines_couverts?: string[];
+  fichier_pdf?: string;
 }

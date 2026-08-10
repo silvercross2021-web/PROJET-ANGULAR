@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CertificationService } from '../../shared/services/CertificationService';
@@ -14,6 +14,7 @@ import { ICertification } from '../../shared/models/ICertification';
 export class CertificationsDetail implements OnInit {
   cert: ICertification | null = null;
   loading = true;
+  isModalOpen = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -31,6 +32,21 @@ export class CertificationsDetail implements OnInit {
       },
       error: () => { this.loading = false; }
     });
+  }
+
+  openCertModal() {
+    if (this.cert?.image_badge || this.cert?.fichier_pdf) {
+      this.isModalOpen = true;
+    }
+  }
+
+  closeCertModal() {
+    this.isModalOpen = false;
+  }
+
+  @HostListener('window:keydown.escape')
+  onEscape() {
+    this.closeCertModal();
   }
 
   isUrl(str: string | undefined): boolean {
