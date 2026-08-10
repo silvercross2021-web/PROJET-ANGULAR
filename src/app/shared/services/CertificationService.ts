@@ -72,7 +72,7 @@ export class CertificationService {
       titre: 'Achieve 10X Productivity with AI-driven Tools',
       organisme: 'Universal AI University',
       date_obtention: '2025',
-      image_badge: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=400&q=80',
+      image_badge: 'https://ggnyiuyufltnulkmzchu.supabase.co/storage/v1/object/public/certifications/certif-inde.jpg',
       lien_verification: 'Karjat, Mumbai - India',
       description: 'Atelier de spécialisation organisé par la première université spécialisée en IA en Inde. Maîtrise des outils d\'IA générative et prompt engineering pour multiplier par 10 la productivité dev.',
       competences_cles: ['AI-Driven Productivity', 'Generative AI', 'Prompt Engineering', 'Automatisation Workflows'],
