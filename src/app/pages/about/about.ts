@@ -31,7 +31,9 @@ export class About implements OnInit, AfterViewInit, OnDestroy {
           ...data.profil,
           nom: data.profil.nom || 'BROU',
           prenom: data.profil.prenom || (data.profil as any).prenoms || 'Brandonne Davy',
-          titre: data.profil.titre || 'Développeur Full-Stack Web & Mobile diplômé en Génie Logiciel (IIT)',
+          titre: this.lang === 'fr'
+            ? 'Ingénieur Logiciel & Développeur Full-Stack Web / Mobile'
+            : 'Software Engineer & Full-Stack Web / Mobile Developer',
           description: this.lang === 'fr' 
             ? "Diplômé en Génie Logiciel à l'Institut Ivoirien de Technologie (IIT), je conçois et développe des solutions logicielles complètes, du frontend moderne aux architectures backend distribuées et au cloud. Passionné par la création de produits numériques performants, j'allie rigueur d'ingénierie, robustesse du code et sens aiguisé du détail."
             : "Software Engineering graduate from the Institut Ivoirien de Technologie (IIT), specialized in designing end-to-end software solutions across modern frontends, distributed backends, and cloud architectures. Focused on delivering reliable, scalable, and high-performance digital products.",
