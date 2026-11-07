@@ -55,7 +55,7 @@
                     <div class="skill-group" *ngFor="let service of services">
                         <h3>{{ service.nom }}</h3>
                         <ul>
-                            <li *ngFor="let outil of service.outils_liste">{{ outil }}</li>
+                            <li *ngFor="let outil of getToolsList(service)">{{ outil }}</li>
                         </ul>
                     </div>
                 </div>

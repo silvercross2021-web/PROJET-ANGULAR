@@ -65,6 +65,22 @@
         }
     }
 
+    .contact-phone-block {
+        margin-top: -1.5rem;
+        .phone-link {
+            font-family: var(--font-body);
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+
+            &:hover {
+                color: var(--color-dark);
+            }
+        }
+    }
+
     .contact-socials {
         display: flex;
         flex-direction: column;

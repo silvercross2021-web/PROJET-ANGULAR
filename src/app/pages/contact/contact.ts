@@ -36,8 +36,15 @@ export class Contact implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
     this.portfolioService.load().subscribe(data => {
-      this.profil = data.profil;
-      this.reseaux = data.reseaux;
+      this.profil = data.profil ? {
+        ...data.profil,
+        telephone: data.profil.telephone || '+225 07 47 76 27 86 / 01 43 49 90 39'
+      } : null;
+      this.reseaux = [
+        { id: 1, nom_plateforme: 'LinkedIn', lien: 'https://www.linkedin.com/in/kablan-christ-brandonne-davy-brou-devs-7b5ab6394/' },
+        { id: 2, nom_plateforme: 'GitHub', lien: 'https://github.com/silvercross2021-web' },
+        { id: 3, nom_plateforme: 'WhatsApp', lien: 'https://wa.me/2250747762786' }
+      ];
       this.cdr.detectChanges();
     });
     this.langSub = this.langService.lang$.subscribe(l => {

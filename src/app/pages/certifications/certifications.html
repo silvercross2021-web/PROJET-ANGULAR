@@ -40,15 +40,27 @@
     <!-- === CONTENU DROIT === -->
     <div class="page-content">
         <div class="work-header">
-            <h1 class="work-title">CERTIFICATIONS</h1>
-            <span class="work-count">{{ certifications.length }}</span>
+            <div class="work-header-top">
+                <h1 class="work-title">CERTIFICATIONS</h1>
+                <span class="work-count">{{ filteredCertifications.length }}</span>
+            </div>
+
+            <!-- Filtres par catégorie -->
+            <div class="work-filters">
+                <button *ngFor="let cat of categories" 
+                    class="filter-pill" 
+                    [class.active]="selectedCategory === cat.id"
+                    (click)="setCategory(cat.id)">
+                    {{ cat.labelFr }}
+                </button>
+            </div>
         </div>
 
         <div class="projects-list">
-            <div *ngFor="let cert of certifications; let i = index"
+            <div *ngFor="let cert of filteredCertifications; let i = index"
                 class="project-row cert-row-item"
+                [class.is-active]="hoveredCert?.id === cert.id"
                 (mouseenter)="hoveredCert = cert"
-                (mouseleave)="hoveredCert = null"
                 (click)="openDetail(cert)"
                 role="link"
                 [attr.aria-label]="'Voir les détails de ' + cert.titre">

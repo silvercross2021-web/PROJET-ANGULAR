@@ -173,6 +173,88 @@
     }
 
 
+    /* Wrapper Menu et Balise Flottante */
+    .menu-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover .menu-beacon:not(.hidden) {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+
+            .beacon-arrow {
+                transform: translate(2px, -2px);
+            }
+        }
+    }
+
+    /* Balise Flottante Glassmorphism au Survol (Palette harmonisée) */
+    .menu-beacon {
+        position: absolute;
+        top: calc(100% + 10px);
+        right: 0;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px 12px;
+        border-radius: 8px;
+        background: color-mix(in srgb, var(--color-bg) 90%, var(--color-dark));
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border: 1px solid color-mix(in srgb, var(--color-dark) 15%, transparent);
+        box-shadow: 0 8px 24px color-mix(in srgb, var(--color-dark) 12%, transparent);
+        cursor: pointer;
+        white-space: nowrap;
+        user-select: none;
+        z-index: 1002;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(6px);
+        transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            right: 17px;
+            width: 8px;
+            height: 8px;
+            background: inherit;
+            border-top: 1px solid color-mix(in srgb, var(--color-dark) 15%, transparent);
+            border-left: 1px solid color-mix(in srgb, var(--color-dark) 15%, transparent);
+            transform: rotate(45deg);
+        }
+
+        .beacon-text {
+            font-family: var(--font-body);
+            font-size: 0.74rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            color: var(--color-dark);
+        }
+
+        .beacon-arrow {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--color-dark);
+            opacity: 0.7;
+            transition: transform 0.3s ease;
+        }
+
+        &:hover {
+            border-color: var(--color-dark);
+            box-shadow: 0 10px 28px color-mix(in srgb, var(--color-dark) 18%, transparent);
+        }
+
+        &.hidden {
+            opacity: 0 !important;
+            pointer-events: none !important;
+        }
+    }
+
     /* Bouton menu */
     .menu-btn {
         background: transparent;
@@ -319,9 +401,35 @@
         width: 38px;
         height: 38px;
     }
+
+    .header .menu-beacon {
+        padding: 4px 9px;
+        top: calc(100% + 6px);
+
+        .beacon-text {
+            font-size: 0.68rem;
+        }
+    }
 }
 
-/* ====== KEYFRAMES AUDIO ====== */
+@media (max-width: 480px) {
+    .header .menu-beacon {
+        .beacon-text {
+            font-size: 0.64rem;
+        }
+    }
+}
+
+/* ====== KEYFRAMES ANIMATION ====== */
+@keyframes beaconGentleFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-3px);
+    }
+}
+
 @keyframes soundWave {
     0% { height: 20%; }
     100% { height: 100%; }

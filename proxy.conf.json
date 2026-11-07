@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "https://portfolio-api-rufs.onrender.com",
+    "target": "https://folio-silvercross.vercel.app",
     "secure": true,
     "changeOrigin": true,
     "logLevel": "info"

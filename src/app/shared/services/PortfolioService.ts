@@ -4,6 +4,7 @@ import { Observable, BehaviorSubject, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { IPortfolio } from '../models/IPortfolio';
 import { environment } from '../../../environments/environment';
+import { ENRICHED_PROJECTS } from '../data/projects.data';
 
 @Injectable({ providedIn: 'root' })
 export class PortfolioService {
@@ -17,12 +18,38 @@ export class PortfolioService {
     const savedData = localStorage.getItem(this.CACHE_KEY);
     if (savedData) {
       try {
-        return JSON.parse(savedData);
+        const parsed = JSON.parse(savedData);
+        return this.normalizePortfolio(parsed);
       } catch (e) {
         console.error('Erreur lecture cache local portfolio', e);
       }
     }
-    return null;
+    return this.normalizePortfolio(null);
+  }
+
+  private normalizePortfolio(data: any): IPortfolio {
+    const rawProfil = data?.profil || {};
+    const profil = {
+      ...rawProfil,
+      nom: rawProfil.nom || 'BROU',
+      prenom: rawProfil.prenom || rawProfil.prenoms || 'Brandonne Davy',
+      titre: rawProfil.titre || 'Développeur Full-Stack Web & Mobile diplômé en Génie Logiciel (IIT)',
+      description: rawProfil.description || rawProfil.biographie || "Diplômé en Génie Logiciel à l'Institut Ivoirien de Technologie (IIT), je conçois et déploie des applications web, mobiles et des architectures cloud haute performance. Lauréat du Hackathon DevFest Abidjan 2025 et finaliste de la compétition SIREXE avec le projet IoT AOCEDA, j'allie rigueur logicielle, intégration d'IA et sens aiguisé du produit pour bâtir des solutions robustes.",
+      email: rawProfil.email || 'brandonnebrou257@gmail.com',
+      telephone: rawProfil.telephone || '+225 07 47 76 27 86',
+      disponibilite: rawProfil.statut || rawProfil.disponibilite || 'Disponible pour opportunités',
+      photo_profil: rawProfil.photo_profil || 'https://ggnyiuyufltnulkmzchu.supabase.co/storage/v1/object/public/certifications/profile.jpg',
+      lien_cv: 'assets/CV_BROU_Kablan_Christ_Brandonne_Davy_Developpeur_FullStack.pdf'
+    };
+
+    return {
+      profil,
+      projets: ENRICHED_PROJECTS,
+      projets_mis_en_avant: ENRICHED_PROJECTS.filter(p => p.est_mis_en_avant),
+      experiences: data?.experiences && data.experiences.length ? data.experiences : [],
+      services: data?.services && data.services.length ? data.services : [],
+      reseaux: data?.reseaux && data.reseaux.length ? data.reseaux : []
+    };
   }
 
   init(): Promise<IPortfolio> {
@@ -32,20 +59,19 @@ export class PortfolioService {
   }
 
   load(): Observable<IPortfolio> {
-    this.http.get<IPortfolio>(this.apiUrl).pipe(
+    this.http.get<any>(this.apiUrl).pipe(
       catchError(err => {
-        console.error('Erreur API Vercel/Supabase', err);
+        console.warn('Utilisation des données enrichies locales (API non joignable)', err);
         return of(null);
       })
     ).subscribe(fresh => {
-      if (fresh) {
-        localStorage.setItem(this.CACHE_KEY, JSON.stringify(fresh));
-        this.portfolioSubject.next(fresh);
-      }
+      const normalized = this.normalizePortfolio(fresh);
+      localStorage.setItem(this.CACHE_KEY, JSON.stringify(fresh || normalized));
+      this.portfolioSubject.next(normalized);
     });
 
     return this.portfolioSubject.asObservable().pipe(
-      map(d => d || { profil: null, projets: [], projets_mis_en_avant: [], experiences: [], services: [], reseaux: [] })
+      map(d => d || this.normalizePortfolio(null))
     );
   }
 

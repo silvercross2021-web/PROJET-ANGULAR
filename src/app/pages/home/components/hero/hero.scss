@@ -212,22 +212,32 @@
 
     .hero-ctas {
         display: flex;
-        gap: 2rem;
+        flex-direction: row;
+        align-items: center;
+        gap: 1.8rem;
+        flex-wrap: nowrap;
+        white-space: nowrap;
+        margin-top: 1.5rem;
         
+        @media (max-width: 1200px) {
+            flex-wrap: wrap;
+            gap: 1.2rem;
+        }
+
         @media (max-width: 768px) {
             justify-content: center;
-            flex-wrap: wrap;
-            gap: 1.5rem;
+            gap: 1rem;
         }
 
         .cta-btn {
             font-family: var(--font-body);
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             font-weight: 500;
             color: var(--color-dark);
             border-bottom: 1px solid var(--color-dark);
             padding-bottom: 2px;
-            transition: opacity 0.3s;
+            text-decoration: none;
+            transition: opacity 0.3s ease;
 
             &:hover {
                 opacity: 0.6;

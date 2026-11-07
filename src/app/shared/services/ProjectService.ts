@@ -1,28 +1,46 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { Observable, map, catchError, of } from 'rxjs';
 import { IProject } from '../models/IProject';
 import { environment } from '../../../environments/environment';
+import { ENRICHED_PROJECTS } from '../data/projects.data';
 
 @Injectable({ providedIn: 'root' })
 export class ProjectService {
   private apiUrl = `${environment.apiUrl}/projects`;
   constructor(private http: HttpClient) {}
 
-  list(): Observable<IProject[]> { return this.http.get<IProject[]>(this.apiUrl); }
-  get(id: string | number): Observable<IProject> { return this.http.get<IProject>(`${this.apiUrl}?id=${id}`); }
+  list(): Observable<IProject[]> { 
+    return this.http.get<IProject[]>(this.apiUrl).pipe(
+      catchError(() => of(ENRICHED_PROJECTS)),
+      map(results => (results && results.length >= 10) ? results : ENRICHED_PROJECTS)
+    ); 
+  }
+
+  get(id: string | number): Observable<IProject | null> { 
+    return this.getBySlug(String(id));
+  }
+
   getBySlug(slug: string): Observable<IProject | null> {
+    const normalizedSlug = String(slug).toLowerCase().trim();
+    const localMatch = ENRICHED_PROJECTS.find(p => 
+      String(p.slug || '').toLowerCase() === normalizedSlug ||
+      String(p.id || '').toLowerCase() === normalizedSlug ||
+      String(p.titre || '').toLowerCase() === normalizedSlug
+    );
+
     return this.http.get<IProject[]>(`${this.apiUrl}`).pipe(
       map(results => {
-        if (!results || !results.length) return null;
-        const normalizedSlug = String(slug).toLowerCase().trim();
-        return results.find(p => 
+        if (!results || !results.length) return localMatch || null;
+        const found = results.find(p => 
           String(p.slug || '').toLowerCase() === normalizedSlug ||
           String(p.id || '').toLowerCase() === normalizedSlug ||
           String(p.titre || '').toLowerCase() === normalizedSlug ||
           String((p as any).title || '').toLowerCase() === normalizedSlug
-        ) || null;
-      })
+        );
+        return found ? { ...(localMatch || {}), ...found } : (localMatch || null);
+      }),
+      catchError(() => of(localMatch || null))
     );
   }
   create(data: Partial<IProject>): Observable<IProject> { return this.http.post<IProject>(this.apiUrl, data); }

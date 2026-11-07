@@ -10,9 +10,9 @@ export class ContactService {
 
   saveContact(contact: any): Observable<any> {
     const payload = {
-      nom: contact.nom_complet || contact.nom || 'Visiteur',
+      name: contact.name || contact.nom_complet || contact.nom || 'Visiteur',
       email: contact.email,
-      sujet: contact.objet || contact.sujet || 'Message Portfolio',
+      subject: contact.subject || contact.objet || contact.sujet || 'Message Portfolio',
       message: contact.message
     };
     return this.http.post<any>(this.apiUrl, payload);

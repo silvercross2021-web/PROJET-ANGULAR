@@ -48,13 +48,26 @@
     <!-- === CONTENU DROIT === -->
     <div class="page-content">
         <div class="work-header">
-            <h1 class="work-title">{{ lang === 'fr' ? 'PROJETS' : 'PROJECTS' }}</h1>
-            <span class="work-count">{{ projects.length }}</span>
+            <div class="work-header-top">
+                <h1 class="work-title">{{ lang === 'fr' ? 'PROJETS' : 'PROJECTS' }}</h1>
+                <span class="work-count">{{ filteredProjects.length }}</span>
+            </div>
+
+            <!-- Filtres interactifs par catégorie -->
+            <div class="work-filters">
+                <button *ngFor="let cat of categories" 
+                    class="filter-pill" 
+                    [class.active]="selectedCategory === cat.id"
+                    (click)="setCategory(cat.id)">
+                    {{ lang === 'fr' ? cat.labelFr : cat.labelEn }}
+                </button>
+            </div>
         </div>
 
         <div class="projects-list">
-            <a *ngFor="let p of projects; let i = index" [routerLink]="['/work', p.slug]" class="project-row"
-                (mouseenter)="hoveredProject = p" (mouseleave)="hoveredProject = null">
+            <a *ngFor="let p of filteredProjects; let i = index" [routerLink]="['/work', p.slug]" class="project-row"
+                [class.is-active]="hoveredProject?.slug === p.slug"
+                (mouseenter)="hoveredProject = p">
 
                 <div class="row-left">
                     <span class="row-num">{{ ('0' + (i + 1)).slice(-2) }}</span>

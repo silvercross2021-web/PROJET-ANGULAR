@@ -58,22 +58,32 @@
             </svg>
         </button>
 
-        <!-- Bouton menu : grille de points / ✕ -->
-        <button class="menu-btn" (click)="toggleMenu()" [attr.aria-label]="menuOpen ? 'Fermer menu' : 'Ouvrir menu'">
-            <div class="menu-icon" [class.is-open]="menuOpen">
-                <!-- Grille 3x3 dots -->
-                <div class="dots-grid">
-                    <span></span><span></span><span></span>
-                    <span></span><span></span><span></span>
-                    <span></span><span></span><span></span>
+        <!-- Bouton menu & Balise flottante Glassmorphism (Option 4) -->
+        <div class="menu-wrapper">
+            <button class="menu-btn" (click)="toggleMenu()" [attr.aria-label]="menuOpen ? 'Fermer menu' : 'Ouvrir menu'">
+                <div class="menu-icon" [class.is-open]="menuOpen">
+                    <!-- Grille 3x3 dots -->
+                    <div class="dots-grid">
+                        <span></span><span></span><span></span>
+                        <span></span><span></span><span></span>
+                        <span></span><span></span><span></span>
+                    </div>
+                    <!-- Croix qui apparaît -->
+                    <div class="close-x">
+                        <span class="bar bar-1"></span>
+                        <span class="bar bar-2"></span>
+                    </div>
                 </div>
-                <!-- Croix qui apparaît -->
-                <div class="close-x">
-                    <span class="bar bar-1"></span>
-                    <span class="bar bar-2"></span>
-                </div>
+            </button>
+
+            <!-- Balise Flottante d'Affordance -->
+            <div class="menu-beacon" [class.hidden]="menuOpen" (click)="toggleMenu()" role="button" tabindex="0">
+                <span class="beacon-text">
+                    {{ (langService.lang$ | async) === 'fr' ? 'Cliquer ici pour le menu' : 'Click here for menu' }}
+                </span>
+                <span class="beacon-arrow">↗</span>
             </div>
-        </button>
+        </div>
     </div>
 
 </header>

@@ -197,16 +197,22 @@
 }
 
 /* ============================================================
-   HEADER WORK
+   HEADER WORK & FILTERS
    ============================================================ */
 .work-header {
     display: flex;
-    align-items: baseline;
+    flex-direction: column;
     gap: 1.2rem;
     margin-bottom: 0;
     padding-bottom: 1.5rem;
     border-bottom: 1px solid color-mix(in srgb, var(--color-primary) 22%, transparent);
     transition: border-color 0.4s ease;
+
+    .work-header-top {
+        display: flex;
+        align-items: baseline;
+        gap: 1.2rem;
+    }
 
     .work-title {
         font-family: var(--font-display);
@@ -224,6 +230,41 @@
         font-weight: 300;
         color: var(--color-primary);
         opacity: 0.5;
+    }
+
+    .work-filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+        align-items: center;
+
+        .filter-pill {
+            background: color-mix(in srgb, var(--color-primary) 6%, transparent);
+            border: 1px solid color-mix(in srgb, var(--color-primary) 18%, transparent);
+            color: var(--color-primary);
+            font-family: var(--font-body);
+            font-size: 0.78rem;
+            font-weight: 500;
+            padding: 5px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            user-select: none;
+
+            &:hover {
+                background: color-mix(in srgb, var(--color-primary) 14%, transparent);
+                color: var(--color-dark);
+                transform: translateY(-1px);
+            }
+
+            &.active {
+                background: var(--color-dark);
+                color: var(--color-bg);
+                border-color: var(--color-dark);
+                font-weight: 600;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            }
+        }
     }
 }
 

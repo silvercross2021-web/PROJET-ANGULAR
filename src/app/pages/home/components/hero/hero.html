@@ -47,15 +47,16 @@
                 </div>
                 <p class="about-text">
                     @if (lang === 'fr') {
-                        {{ profil?.description || 'Étudiant en 3ème année d\'informatique (IIT), polyvalent et motivé, avec des compétences solides en développement logiciel et en développement web. J\'aime relever les défis et je souhaite contribuer à des projets innovants tout en poursuivant mon apprentissage.' }}
+                        Diplômé en Génie Logiciel à l'Institut Ivoirien de Technologie (IIT), je conçois et déploie des applications web, mobiles et des architectures cloud haute performance. Lauréat du Hackathon DevFest Abidjan 2025 et finaliste de la compétition SIREXE avec le projet IoT AOCEDA, j'allie rigueur logicielle, intégration d'IA et sens aiguisé du produit pour bâtir des solutions robustes et évolutives.
                     } @else {
-                        Third-year Computer Science student (IIT), versatile and motivated, with solid skills in software development and web development. I enjoy tackling challenges and wish to contribute to innovative projects while continuing to learn.
+                        Software Engineering graduate from the Institut Ivoirien de Technologie (IIT), specializing in high-performance web, mobile, and cloud architectures. Winner of Hackathon DevFest Abidjan 2025 and finalist at the SIREXE competition with the AOCEDA IoT system, I combine software engineering best practices, AI integration, and product design to craft scalable digital solutions.
                     }
                 </p>
             </div>
 
             <div class="hero-ctas">
                 <a routerLink="/work" class="cta-btn">→ {{ lang === 'fr' ? 'voir mes projets' : 'view my work' }}</a>
+                <a routerLink="/certifications" class="cta-btn">→ {{ lang === 'fr' ? 'explorer mes certifications' : 'explore certifications' }}</a>
                 <a routerLink="/about" class="cta-btn">→ {{ lang === 'fr' ? 'en savoir plus' : 'learn more' }}</a>
             </div>
         </div>
