@@ -76,12 +76,11 @@
                 </div>
             </button>
 
-            <!-- Balise Flottante d'Affordance -->
+            <!-- Balise Flottante Menu (Visible en continu, sans flèche) -->
             <div class="menu-beacon" [class.hidden]="menuOpen" (click)="toggleMenu()" role="button" tabindex="0">
                 <span class="beacon-text">
                     {{ (langService.lang$ | async) === 'fr' ? 'Cliquer ici pour le menu' : 'Click here for menu' }}
                 </span>
-                <span class="beacon-arrow">↗</span>
             </div>
         </div>
     </div>
