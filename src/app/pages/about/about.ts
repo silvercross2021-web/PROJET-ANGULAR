@@ -33,8 +33,8 @@ export class About implements OnInit, AfterViewInit, OnDestroy {
           prenom: data.profil.prenom || (data.profil as any).prenoms || 'Brandonne Davy',
           titre: data.profil.titre || 'Développeur Full-Stack Web & Mobile diplômé en Génie Logiciel (IIT)',
           description: this.lang === 'fr' 
-            ? "Diplômé en Génie Logiciel à l'Institut Ivoirien de Technologie (IIT), je conçois et déploie des applications web, mobiles et des architectures cloud haute performance. Lauréat du Hackathon DevFest Abidjan 2025 et finaliste de la compétition SIREXE avec le projet IoT AOCEDA, j'allie rigueur logicielle, intégration d'IA et sens aiguisé du produit pour bâtir des solutions robustes."
-            : "Software Engineering graduate from the Institut Ivoirien de Technologie (IIT), specializing in high-performance web, mobile, and cloud architectures. Winner of Hackathon DevFest Abidjan 2025 and finalist at the SIREXE competition with the AOCEDA IoT system, I combine software engineering best practices, AI integration, and product design to craft scalable digital solutions.",
+            ? "Diplômé en Génie Logiciel à l'Institut Ivoirien de Technologie (IIT), je conçois et développe des solutions logicielles complètes, du frontend moderne aux architectures backend distribuées et au cloud. Passionné par la création de produits numériques performants, j'allie rigueur d'ingénierie, robustesse du code et sens aiguisé du détail."
+            : "Software Engineering graduate from the Institut Ivoirien de Technologie (IIT), specialized in designing end-to-end software solutions across modern frontends, distributed backends, and cloud architectures. Focused on delivering reliable, scalable, and high-performance digital products.",
           email: data.profil.email || 'brandonnebrou257@gmail.com',
           telephone: data.profil.telephone || '+225 07 47 76 27 86',
           disponibilite: this.lang === 'fr' ? 'Disponible pour opportunités' : 'Available for opportunities',

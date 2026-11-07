@@ -62,7 +62,7 @@
         }
     }
 
-    // Mise en page main
+    // Mise en page main (Grille 2x2 verrouillant l'alignement horizontal bas)
     .hero-layout {
         position: relative;
         z-index: 10;
@@ -70,12 +70,15 @@
         margin-left: 6vw; /* Espace ajouté pour séparer du sidebar */
         display: grid;
         grid-template-columns: 1.2fr 1fr;
-        gap: 8vw;
-        align-items: stretch;
+        grid-template-rows: auto auto;
+        column-gap: 8vw;
+        row-gap: 4.5rem;
+        align-items: end;
 
         @media (max-width: 900px) {
-            grid-template-columns: 1fr;
-            gap: 4rem;
+            display: flex;
+            flex-direction: column;
+            gap: 3.5rem;
             margin-left: 4rem;
         }
 
@@ -87,13 +90,11 @@
     }
 
     .hero-left {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        min-height: 52vh;
+        display: contents;
 
         @media (max-width: 900px) {
-            min-height: auto;
+            display: flex;
+            flex-direction: column;
             gap: 2rem;
         }
         
@@ -101,6 +102,12 @@
             text-align: center;
             align-items: center;
         }
+    }
+
+    .hero-name-container {
+        grid-column: 1;
+        grid-row: 1;
+        align-self: center;
     }
 
     .hero-name {
@@ -134,12 +141,15 @@
     }
 
     .hero-inquiries {
+        grid-column: 1;
+        grid-row: 2;
+        align-self: end;
         font-family: var(--font-body);
         font-size: 0.85rem;
         color: var(--color-primary);
         line-height: 1.5;
         margin: 0;
-        padding-bottom: 2px;
+        padding: 0;
 
         p {
             opacity: 0.7;
@@ -153,7 +163,8 @@
             color: var(--color-dark);
             text-decoration: none;
             border-bottom: 1px solid currentColor;
-            padding-bottom: 1px;
+            padding-bottom: 2px;
+            line-height: 1.2;
             word-break: break-all;
 
             @media (max-width: 768px) {
@@ -164,13 +175,11 @@
 
     // Colonne DROITE
     .hero-right {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        min-height: 52vh;
+        display: contents;
 
         @media (max-width: 900px) {
-            min-height: auto;
+            display: flex;
+            flex-direction: column;
             gap: 2.5rem;
         }
 
@@ -181,6 +190,10 @@
     }
 
     .about-section {
+        grid-column: 2;
+        grid-row: 1;
+        align-self: center;
+
         .about-header {
             display: flex;
             align-items: center;
@@ -206,10 +219,11 @@
 
         .about-text {
             font-family: var(--font-body);
-            font-size: clamp(0.95rem, 1.2vw, 1.1rem);
-            line-height: 1.7;
+            font-size: clamp(0.95rem, 1.15vw, 1.05rem);
+            line-height: 1.65;
             color: var(--color-primary);
-            max-width: 450px;
+            max-width: 480px;
+            margin: 0;
 
             @media (max-width: 768px) {
                 font-size: 0.95rem;
@@ -219,6 +233,9 @@
     }
 
     .hero-ctas {
+        grid-column: 2;
+        grid-row: 2;
+        align-self: end;
         display: flex;
         flex-direction: row;
         align-items: flex-end;
@@ -226,7 +243,7 @@
         flex-wrap: nowrap;
         white-space: nowrap;
         margin: 0;
-        padding-bottom: 2px;
+        padding: 0;
         
         @media (max-width: 1200px) {
             flex-wrap: wrap;
@@ -240,11 +257,13 @@
 
         .cta-btn {
             font-family: var(--font-body);
-            font-size: 0.88rem;
+            font-size: 0.9rem;
             font-weight: 500;
             color: var(--color-dark);
             border-bottom: 1px solid var(--color-dark);
             padding-bottom: 2px;
+            line-height: 1.2;
+            margin-top: 0 !important;
             text-decoration: none;
             transition: opacity 0.3s ease;
 
@@ -259,4 +278,4 @@
         display: block;
         overflow: hidden;
     }
-}
+}
