@@ -29,8 +29,7 @@ export class PortfolioService {
 
   private normalizePortfolio(data: any): IPortfolio {
     const rawProfil = data?.profil || {};
-    const profil = {
-      ...rawProfil,
+    const profil = Object.assign({}, rawProfil, {
       nom: rawProfil.nom || 'BROU',
       prenom: rawProfil.prenom || rawProfil.prenoms || 'Brandonne Davy',
       titre: 'Ingénieur Logiciel & Développeur Full-Stack Web / Mobile',
@@ -40,7 +39,7 @@ export class PortfolioService {
       disponibilite: rawProfil.statut || rawProfil.disponibilite || 'Disponible pour opportunités',
       photo_profil: rawProfil.photo_profil || 'https://ggnyiuyufltnulkmzchu.supabase.co/storage/v1/object/public/certifications/profile.jpg',
       lien_cv: 'assets/CV_BROU_Kablan_Christ_Brandonne_Davy_Developpeur_FullStack.pdf'
-    };
+    });
 
     return {
       profil,

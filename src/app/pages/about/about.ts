@@ -27,8 +27,7 @@ export class About implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {
     this.portfolioService.load().subscribe(data => {
       if (data.profil) {
-        this.profil = {
-          ...data.profil,
+        this.profil = Object.assign({}, data.profil, {
           nom: data.profil.nom || 'BROU',
           prenom: data.profil.prenom || (data.profil as any).prenoms || 'Brandonne Davy',
           titre: this.lang === 'fr'
@@ -42,7 +41,7 @@ export class About implements OnInit, AfterViewInit, OnDestroy {
           disponibilite: this.lang === 'fr' ? 'Disponible pour opportunités' : 'Available for opportunities',
           photo_profil: data.profil.photo_profil || 'https://ggnyiuyufltnulkmzchu.supabase.co/storage/v1/object/public/certifications/profile.jpg',
           lien_cv: 'assets/CV_BROU_Kablan_Christ_Brandonne_Davy_Developpeur_FullStack.pdf'
-        };
+        });
       }
       this.services = data.services;
       this.updateExperiences();
