@@ -52,29 +52,34 @@ export class Hero implements OnInit, AfterViewInit, OnDestroy {
       tl.fromTo(sidebar, { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 1 })
         .fromTo(socialLinks, { opacity: 0, y: 10 }, { opacity: 0.6, y: 0, stagger: 0.1, duration: 0.8 }, '-=0.5');
 
-      // 2. Colonne Gauche (Nom + Inquiries)
+      // 2. Colonne Gauche (Nom + Profession)
       tl.to(nameLines, {
         y: 0,
         duration: 1.2,
         stagger: 0.15,
         ease: 'power4.out'
       }, '-=1')
-        .fromTo([profession, inquiries], { opacity: 0, y: 20 }, {
+        .fromTo(profession, { opacity: 0, y: 20 }, {
           opacity: 1,
           y: 0,
           duration: 0.8,
-          stagger: 0.2,
           ease: 'power3.out'
         }, '-=0.6');
 
-      // 3. Colonne Droite (About)
-      tl.fromTo([aboutHeader, aboutText, heroCtas], { opacity: 0, y: 20 }, {
+      // 3. Colonne Droite (About) + Ligne du bas synchronisée (Inquiries + CTAs)
+      tl.fromTo([aboutHeader, aboutText], { opacity: 0, y: 20 }, {
         opacity: 1,
         y: 0,
         duration: 0.8,
-        stagger: 0.2,
+        stagger: 0.15,
         ease: 'power3.out'
-      }, '-=0.4');
+      }, '-=0.6')
+        .fromTo([inquiries, heroCtas], { opacity: 0, y: 20 }, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: 'power3.out'
+        }, '-=0.5');
     });
   }
 
