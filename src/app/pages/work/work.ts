@@ -39,6 +39,12 @@ export class Work implements OnInit, OnDestroy {
       if (this.projects && this.projects.length && !this.hoveredProject) {
         this.hoveredProject = this.projects[0];
       }
+      this.projects.forEach(p => {
+        if (p.image) {
+          const img = new Image();
+          img.src = p.image;
+        }
+      });
       this.cdr.detectChanges();
     });
     this.langSub = this.langService.lang$.subscribe(l => {

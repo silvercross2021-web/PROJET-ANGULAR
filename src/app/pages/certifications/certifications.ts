@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { CertificationService } from '../../shared/services/CertificationService';
@@ -26,7 +26,8 @@ export class Certifications implements OnInit {
 
   constructor(
     private certService: CertificationService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -36,10 +37,19 @@ export class Certifications implements OnInit {
         if (this.certifications && this.certifications.length && !this.hoveredCert) {
           this.hoveredCert = this.certifications[0];
         }
+        // Préchargement instantané de toutes les images de certificats en arrière-plan
+        this.certifications.forEach(c => {
+          if (c.image_badge) {
+            const img = new Image();
+            img.src = c.image_badge;
+          }
+        });
         this.loading = false;
+        this.cdr.detectChanges();
       },
       error: () => {
         this.loading = false;
+        this.cdr.detectChanges();
       }
     });
   }
@@ -74,6 +84,10 @@ export class Certifications implements OnInit {
 
   setCategory(catId: string) {
     this.selectedCategory = catId;
+    const filtered = this.filteredCertifications;
+    if (filtered.length) {
+      this.hoveredCert = filtered[0];
+    }
   }
 
   getIndex(cert: ICertification): number {
