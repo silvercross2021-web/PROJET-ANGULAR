@@ -11,10 +11,7 @@ export class ProjectService {
   constructor(private http: HttpClient) {}
 
   list(): Observable<IProject[]> { 
-    return this.http.get<IProject[]>(this.apiUrl).pipe(
-      catchError(() => of(ENRICHED_PROJECTS)),
-      map(results => (results && results.length >= 10) ? results : ENRICHED_PROJECTS)
-    ); 
+    return of(ENRICHED_PROJECTS);
   }
 
   get(id: string | number): Observable<IProject | null> { 
@@ -29,20 +26,24 @@ export class ProjectService {
       String(p.titre || '').toLowerCase() === normalizedSlug
     );
 
+    if (localMatch) {
+      return of(localMatch);
+    }
+
     return this.http.get<IProject[]>(`${this.apiUrl}`).pipe(
       map(results => {
-        if (!results || !results.length) return localMatch || null;
-        const found = results.find(p => 
+        if (!results || !results.length) return null;
+        return results.find(p => 
           String(p.slug || '').toLowerCase() === normalizedSlug ||
           String(p.id || '').toLowerCase() === normalizedSlug ||
           String(p.titre || '').toLowerCase() === normalizedSlug ||
           String((p as any).title || '').toLowerCase() === normalizedSlug
-        );
-        return found ? { ...(localMatch || {}), ...found } : (localMatch || null);
+        ) || null;
       }),
-      catchError(() => of(localMatch || null))
+      catchError(() => of(null))
     );
   }
+
   create(data: Partial<IProject>): Observable<IProject> { return this.http.post<IProject>(this.apiUrl, data); }
   update(id: string | number, data: Partial<IProject>): Observable<IProject> { return this.http.put<IProject>(this.apiUrl, { ...data, id }); }
   delete(id: string | number): Observable<any> { return this.http.delete<any>(`${this.apiUrl}?id=${id}`); }
