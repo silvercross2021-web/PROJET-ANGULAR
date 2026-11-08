@@ -149,12 +149,23 @@
 /* Skills */
 .about-skills {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 3rem;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 3rem;
+    row-gap: 3.5rem;
     margin: 3rem 0;
     padding: 3rem 0;
     border-top: 1px solid color-mix(in srgb, var(--color-primary) 15%, transparent);
     border-bottom: 1px solid color-mix(in srgb, var(--color-primary) 15%, transparent);
+
+    @media (max-width: 900px) {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2.5rem;
+    }
+
+    @media (max-width: 550px) {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
 
     .skill-group {
         h3 {

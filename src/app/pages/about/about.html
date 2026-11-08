@@ -62,9 +62,9 @@
 
                 <!-- Timeline expérience dynamique -->
                 <div class="experience-timeline" *ngIf="experiences.length > 0">
-                    <h3 class="timeline-title">{{ lang === 'fr' ? 'Expériences' : 'Experience' }}</h3>
+                    <h3 class="timeline-title">{{ lang === 'fr' ? 'Expériences & Parcours' : 'Experience & Background' }}</h3>
                     <div class="timeline-item" *ngFor="let exp of experiences">
-                        <span class="timeline-year">{{ formatDate(exp.date_debut) }} — {{ formatDate(exp.date_fin) }}</span>
+                        <span class="timeline-year">{{ getPeriod(exp) }}</span>
                         <div class="timeline-content">
                             <h4>{{ exp.role }}</h4>
                             <p>{{ exp.nom_entreprise }} — {{ exp.description }}</p>
