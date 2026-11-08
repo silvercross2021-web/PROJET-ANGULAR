@@ -124,19 +124,19 @@ export class About implements OnInit, AfterViewInit, OnDestroy {
         date_debut: this.lang === 'fr' ? 'Novembre 2026' : 'November 2026',
         date_fin: '',
         description: this.lang === 'fr'
-          ? 'Conception d\'AOCEDA, boîtier IoT ESP32 basse consommation (< 9 000 FCFA, capteurs ZMCT103C, écart 0.4%) avec monitoring temps réel et assistant vocal local en Dioula. Finaliste Prix Liberté Énergie SIREXE.'
-          : 'Engineered AOCEDA low-cost ESP32 IoT energy monitoring hardware (< 9000 FCFA, 99.6% accuracy) with real-time web dashboard and local voice assistant in Dioula. SIREXE Finalist.',
+          ? 'Conception d\'AOCEDA, solution intelligente de suivi énergétique en temps réel (web, mobile et IoT) accompagnée d\'un assistant virtuel pour aider les foyers et entreprises à maîtriser leur facture d\'électricité. Finaliste SIREXE.'
+          : 'Designed AOCEDA, a smart real-time energy monitoring platform (web, mobile, and IoT) with a virtual assistant helping households and businesses optimize their electricity consumption. SIREXE Finalist.',
         type_de_contrat: 'Recherche & R&D'
       },
       {
         id: 102,
         role: this.lang === 'fr' ? 'Ingénieur Logiciel & Développeur Full-Stack Freelance' : 'Freelance Software Engineer & Full-Stack Developer',
-        nom_entreprise: 'Missions Freelance (Garitiket, Barababi & Solutions sur mesure)',
+        nom_entreprise: 'Missions Freelance (Garitiket & Solutions sur mesure)',
         date_debut: '2022',
         date_fin: '2026',
         description: this.lang === 'fr'
-          ? 'Conception et mise en production d\'applications web et mobiles complètes : billetterie interurbaine Garitiket (Mobile Money Wave/Orange/MTN, QR codes sécurisés), plateformes métiers et architectures cloud.'
-          : 'End-to-end design and production deployment of web and mobile platforms including Garitiket intercity ticketing (Mobile Money & encrypted QR validation) and custom cloud architectures.',
+          ? 'Conception et mise en production d\'applications web et mobiles complètes : plateforme de réservation de billets de car Garitiket (gariticket.ci), portails métiers et solutions numériques sur mesure.'
+          : 'End-to-end design and production deployment of web and mobile platforms including the Garitiket intercity bus booking platform (gariticket.ci) and custom business software.',
         type_de_contrat: 'Freelance'
       },
       {
@@ -146,8 +146,8 @@ export class About implements OnInit, AfterViewInit, OnDestroy {
         date_debut: this.lang === 'fr' ? 'Novembre 2025' : 'November 2025',
         date_fin: '',
         description: this.lang === 'fr' 
-          ? 'Vainqueur avec Justice-Guide AI, plateforme IA multilingue (Français, Dioula, Baoulé) propulsée par un moteur RAG et Sentence-Transformers avec seuil de confiance strict 65% anti-hallucination.'
-          : 'Won 1st place with Justice-Guide AI, a multilingual legal assistant platform (French, Dioula, Baoulé) built with RAG and Sentence-Transformers.',
+          ? 'Vainqueur du 1er Prix avec Justice-Guide AI, assistant juridique intelligent conçu pour rendre les textes de loi ivoiriens accessibles et compréhensibles pour tous les citoyens.'
+          : 'Won 1st place with Justice-Guide AI, an intelligent legal assistant designed to make Ivorian laws accessible and understandable for all citizens.',
         type_de_contrat: 'Hackathon'
       },
       {
@@ -157,8 +157,8 @@ export class About implements OnInit, AfterViewInit, OnDestroy {
         date_debut: this.lang === 'fr' ? 'Fin 2024' : 'Late 2024',
         date_fin: '2025',
         description: this.lang === 'fr'
-          ? 'Refonte complète du portail juridique international sous Django 5+, intégration du module invest_immo, sécurisation de l\'infrastructure cloud et administration Unfold.'
-          : 'Full revamp of the international corporate legal portal using Django 5+, property investment module integration, and cloud infrastructure security.',
+          ? 'Conception et pilotage du portail numérique officiel du cabinet juridique international, intégration de l\'espace immobilier DEJUC Invest Immo et gestion de l\'infrastructure web.'
+          : 'Designed and led the official web portal for the international legal firm, including the DEJUC Invest Immo real estate module and web infrastructure.',
         type_de_contrat: 'Entreprise'
       },
       {
