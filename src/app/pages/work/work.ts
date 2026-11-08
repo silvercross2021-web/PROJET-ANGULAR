@@ -25,6 +25,7 @@ export class Work implements OnInit, OnDestroy {
     { id: 'Recherche & IoT', labelFr: 'Recherche & IoT', labelEn: 'Research & IoT' },
     { id: 'Entreprise & Freelance', labelFr: 'Entreprise & Freelance', labelEn: 'Business & Freelance' },
     { id: 'Web & Logiciel', labelFr: 'Web & Logiciel', labelEn: 'Web & Software' },
+    { id: 'Créations Photoshop', labelFr: 'Créations Photoshop', labelEn: 'Photoshop Creations' },
     { id: 'Créatif & Interactif', labelFr: 'Créatif & Interactif', labelEn: 'Creative & Interactive' }
   ];
 
